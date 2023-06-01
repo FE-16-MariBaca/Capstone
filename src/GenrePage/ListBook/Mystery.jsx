@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import axios from "axios";
 import { useEffect, useState } from "react";
 import {
   Container,
@@ -9,27 +7,27 @@ import {
   InputGroup,
   Card,
   Spinner,
+  Button,
 } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { useDispatch, useSelector } from "react-redux";
-import { getPostsSelf } from "../../redux/features/postSelfSlice";
+import { getPostMastery } from "../../redux/features/postMysterySlice";
 
-const SelfImprovement = () => {
-  const dispatch = useDispatch();
-  const { postsSelf, loading } = useSelector((state) => state.postSelf);
-  console.log("tes", postsSelf);
+const Mystery = () => {
   const navigate = useNavigate();
-  let [books, setBooks] = useState([]);
+  const dispatch = useDispatch();
+  const { postsMystery, loading } = useSelector((state) => state.postMystery);
+  console.log(postsMystery);
+  let [books, setBooks] = useState();
   const [searchBooks, setSearchBooks] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  let verifyLogin = localStorage.getItem("user-info");
+  const [isLoading, setIsloading] = useState(false);
+  let verifyLogin = localStorage.getItem("user.info");
 
   const loginFirst = () => {
     const Toast = Swal.mixin({
       toast: true,
-      position: "top",
+      position: top,
       showConfirmButton: false,
       timer: 2000,
       timerProgressBar: false,
@@ -47,7 +45,7 @@ const SelfImprovement = () => {
 
   useEffect(() => {
     dispatch(() => {
-      dispatch(getPostsSelf());
+      dispatch(getPostMastery());
     });
   }, []);
 
@@ -58,22 +56,23 @@ const SelfImprovement = () => {
 
   if (searchBooks.length > 0) {
     books = books.filter((i) => {
-      return i.title.toLowerCase().match(searchBooks.toLowerCase());
+      return i.title.toLowerCase().match(searchBooks.toLocaleLowerCase());
     });
   }
 
-  if (isLoading)
+  if (isLoading) {
     return (
-      <Container className="vh-100 d-flex justify-content-center align-items-center">
+      <Container>
         <Spinner animation="border" variant="danger" />
       </Container>
     );
+  }
 
   return (
     <Container>
       <Row className="mt-5">
         <Col lg={9}>
-          <p className="fs-4 fw-semibold">Self Improvement Genre</p>
+          <p className="fs-4 fw-semibolf">Mystery Genre</p>
         </Col>
         <Col lg={3}>
           <InputGroup className="mb-3 w-100">
@@ -89,11 +88,12 @@ const SelfImprovement = () => {
           </InputGroup>
         </Col>
       </Row>
+
       <Row className="mt-3 mb-5 g-3">
-        {postsSelf.map((item) => (
+        {postsMystery.map((item) => (
           <Col key={item.id} xs={6} sm={4} md={3} lg={2}>
             <Link
-              to={`/genre/self-improvement/${item.id}`}
+              to={`/genre/mystery/${item.id}`}
               className="text-decoration-none"
             >
               <Card className="bg-light">
@@ -116,4 +116,4 @@ const SelfImprovement = () => {
   );
 };
 
-export default SelfImprovement;
+export default Mystery;

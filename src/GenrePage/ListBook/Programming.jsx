@@ -22,7 +22,7 @@ const Programming = () => {
   console.log("tes",posts)
   let [books, setBooks] = useState([]);
   const [searchBooks, setSearchBooks] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   let verifyLogin = localStorage.getItem("user-info");
 
@@ -74,7 +74,7 @@ const Programming = () => {
   };
 
   if (searchBooks.length > 0) {
-    books = books.filter((i) => {
+    books = posts.filter((i) => {
       return i.title.toLowerCase().match(searchBooks.toLowerCase());
     });
   }

@@ -17,6 +17,10 @@ import BackToTop from './public-components/BackToTop/BackToTop';
 import SettingPrivacy from './SettingPage/SettingPrivacy';
 import BookmarksPage from './BookmarksPage/BookmarksPage';
 import Footer from './public-components/Footer/Footer';
+import Mystery from './GenrePage/ListBook/Mystery';
+import MysteryRead from './ReadPage/MysteryRead';
+import MysteryDetail from './DetailPage/ListDetail/MysteryDetail';
+import Philosophy from './GenrePage/ListBook/Philosophy';
 
 function App() {
   return (
@@ -33,10 +37,16 @@ function App() {
         <Route path="/setting/privacy" element={<SettingPrivacy />} />
         <Route path="/genre/self-improvement" element={<SelfImprovement />} />
         <Route path="/genre/programming" element={<Programming />} />
+        <Route path="/genre/mystery" element={<Mystery />} />
+        <Route path="/genre/philosophy" element={<Philosophy />} />
         <Route path="/genre/self-improvement/:bookId" element={<SelfImprovementDetail />} />
         <Route path="/genre/programming/:bookId" element={<ProgrammingDetail />} />
+        <Route path="/genre/mystery/:bookId" element={<MysteryDetail />} />
+        
         <Route path="/genre/self-improvement/read/:bookId" element={<SelfImprovementRead />} />
         <Route path="/genre/programming/read/:bookId" element={<ProgrammingRead />} />
+        <Route path="/genre/mystery/read/:bookId" element={<MysteryRead />} />
+        <Route path="/genre/mystery/read/:bookId" element={<MysteryRead />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
