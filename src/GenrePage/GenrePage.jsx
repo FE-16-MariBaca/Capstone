@@ -7,56 +7,25 @@ import Swal from "sweetalert2";
 import "./GenrePage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getGenre } from "../redux/features/featuresGenre/listGenre";
-// import listGenre, { setGenres } from "../redux/features/featuresGenre/listGenre";
+import { handleSearch } from "../redux/features/featuresGenre/listGenre";
 
 const SelfImprovementDetail = () => {
   const navigate = useNavigate();
   const [searchGenre, setSearchGenre] = useState("");
   const dispatch = useDispatch();
+  const searchListGenre = useSelector((state) => state.genre.searchListGenre)
   const {genre, loading} = useSelector((state) => state.genre)
   console.log(genre)
-  // const genres = useSelector((state) => state.genre)
-  // let listGenre = [
-  //   {
-  //     img: "https://res.cloudinary.com/dwsgej6rd/image/upload/v1685091005/13_vwqvyn.png",
-  //     title: "Programming",
-  //     url: "/genre/programming",
-  //   },
-  //   {
-  //     img: "https://res.cloudinary.com/dwsgej6rd/image/upload/v1685091004/D34903C0-57AA-430D-A89F-EC10DC8C909C_axnhdx.webp",
-  //     title: "Self Improvement",
-  //     url: "/genre/self-improvement",
-  //   },
-  //   {
-  //     img: "https://res.cloudinary.com/dwsgej6rd/image/upload/v1685105698/filsafat_s9izog.jpg",
-  //     title: "Philosophy",
-  //     url: "/genre/philosophy",
-  //   },
-  //   {
-  //     img: "https://res.cloudinary.com/dwsgej6rd/image/upload/v1685109015/Historysss_wdo2ou.jpg",
-  //     title: "History",
-  //     url: "/genre/history",
-  //   },
-  //   {
-  //     img:"https://trustedmarketingservices.com/wp-content/uploads/2016/02/mystery-person.jpg",
-  //     title: "Mystery",
-  //     url:"/genre/mystery",
-  
-  //   }
-  // ];
-
-
+ 
 
 
   useEffect(() => {
-    // if (!verifyLogin) {
-    //   loginFirst();
-    //   navigate("/login");
-    // }
-
-    dispatch(() => {
+    if (!verifyLogin) {
+      loginFirst();
+      navigate("/login");
+    }
       dispatch(getGenre())
-    })
+    
   }, []);
 
 
@@ -86,12 +55,12 @@ const SelfImprovementDetail = () => {
 
   const handleChange = (e) => {
     e.preventDefault();
-    setSearchGenre(e.target.value);
+    dispatch(handleChange(e.target.value));
   };
 
   if (searchGenre.length > 0) {
-    listGenre = listGenre.filter((i) => {
-      return i.title.toLowerCase().match(searchGenre.toLowerCase());
+    genre = genre.filter((item) => {
+      return item.title.toLowerCase().include(searchGenre.toLowerCase());
     });
   }
 
@@ -106,7 +75,7 @@ const SelfImprovementDetail = () => {
             <InputGroup className="mb-3 w-100">
               <Form.Control
                 type="text"
-                value={searchGenre}
+                value={searchListGenre}
                 onChange={handleChange}
                 placeholder="Search Genre"
               />

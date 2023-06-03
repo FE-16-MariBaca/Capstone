@@ -1,5 +1,8 @@
-import {createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+
+
+
 
 export const getGenre = createAsyncThunk("genre/getGenre", async () => {
     try {
@@ -11,11 +14,14 @@ export const getGenre = createAsyncThunk("genre/getGenre", async () => {
     }
 })
 
+export const handleSearch = createAction("search/handleSearch")
+
 const genreSlice = createSlice({
     name: "genre",
     initialState: {
         genre: [],
         loading: false,
+        searchGenre:"",
             
     },
     reducers:{},
@@ -30,6 +36,9 @@ const genreSlice = createSlice({
          })
          .addCase(getGenre.rejected, (state) => {
             state.loading = false
+         })
+         .addCase(handleSearch, (state, action) => {
+            state.searchGenre = action.payload
          })
     }
 
