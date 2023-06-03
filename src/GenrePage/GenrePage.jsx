@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import "./GenrePage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getGenre } from "../redux/features/featuresGenre/listGenre";
-import { handleSearch } from "../redux/features/featuresGenre/listGenre";
+// import { handleSearch } from "../redux/features/featuresGenre/listGenre";
 
 const SelfImprovementDetail = () => {
   const navigate = useNavigate();
@@ -59,7 +59,7 @@ const SelfImprovementDetail = () => {
   };
 
   if (searchGenre.length > 0) {
-    genre = genre.filter((item) => {
+    searchGenre = genre.filter((item) => {
       return item.title.toLowerCase().include(searchGenre.toLowerCase());
     });
   }

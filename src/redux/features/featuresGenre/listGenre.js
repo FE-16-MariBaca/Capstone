@@ -14,7 +14,10 @@ export const getGenre = createAsyncThunk("genre/getGenre", async () => {
     }
 })
 
-export const handleSearch = createAction("search/handleSearch")
+
+
+
+
 
 const genreSlice = createSlice({
     name: "genre",
@@ -37,9 +40,9 @@ const genreSlice = createSlice({
          .addCase(getGenre.rejected, (state) => {
             state.loading = false
          })
-         .addCase(handleSearch, (state, action) => {
-            state.searchGenre = action.payload
-         })
+        //  .addCase(handleSearch, (state, action) => {
+        //     state.searchGenre = action.payload
+        //  })
     }
 
 })

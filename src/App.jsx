@@ -21,6 +21,8 @@ import Mystery from './GenrePage/ListBook/Mystery';
 import MysteryRead from './ReadPage/MysteryRead';
 import MysteryDetail from './DetailPage/ListDetail/MysteryDetail';
 import Philosophy from './GenrePage/ListBook/Philosophy';
+import PhilosophyDetail from './DetailPage/ListDetail/PhilosophyDetail';
+import PhilosophyRead from './ReadPage/PhilosophyRead';
 
 function App() {
   return (
@@ -42,11 +44,12 @@ function App() {
         <Route path="/genre/self-improvement/:bookId" element={<SelfImprovementDetail />} />
         <Route path="/genre/programming/:bookId" element={<ProgrammingDetail />} />
         <Route path="/genre/mystery/:bookId" element={<MysteryDetail />} />
+        <Route path="/genre/philosophy/:bookId" element={<PhilosophyDetail />} />
         
         <Route path="/genre/self-improvement/read/:bookId" element={<SelfImprovementRead />} />
         <Route path="/genre/programming/read/:bookId" element={<ProgrammingRead />} />
         <Route path="/genre/mystery/read/:bookId" element={<MysteryRead />} />
-        <Route path="/genre/mystery/read/:bookId" element={<MysteryRead />} />
+        <Route path="/genre/philosophy/read/:bookId" element={<PhilosophyRead />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

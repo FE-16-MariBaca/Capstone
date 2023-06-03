@@ -56,6 +56,8 @@ const Philosophy = () => {
     setSearchBooks(e.target.value);
   };
 
+ 
+
   if (searchBooks.length > 0) {
     books = books.filter((i) => {
       return i.title.toLowerCase().match(searchBooks.toLocaleLowerCase());
@@ -95,9 +97,9 @@ const Philosophy = () => {
 
     <Row className="mt-3 mb-5 g-3">
       {postsPhilosophy.map((item) => (
-        <Col key={item.id} xs={6} sm={4} md={3} lg={2}>
+        <Col key={item.id} xs={6} sm={4} md={3} lg={2} >
           <Link
-            to={`/genre/mystery/${item.id}`}
+            to={`/genre/philosophy/${item.id}`}
             className="text-decoration-none"
           >
             <Card className="bg-light">
