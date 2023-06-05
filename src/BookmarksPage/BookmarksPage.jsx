@@ -17,7 +17,7 @@ const BookmarksPage = () => {
   useEffect(() => {
     const getAPI = async () => {
       try {
-        const response = await axios.get('https://64670f90ba7110b663ae7915.mockapi.io/bookmarks');
+        const response = await axios.get('https://647ad0d0d2e5b6101db08cbd.mockapi.io/bookmarks');
         setDataBookmark(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -55,7 +55,7 @@ const BookmarksPage = () => {
   };
 
   const handleDelete = (id) => {
-    axios.delete(`https://64670f90ba7110b663ae7915.mockapi.io/bookmarks/${id}`);
+    axios.delete(`https://647ad0d0d2e5b6101db08cbd.mockapi.io/bookmarks/${id}`);
     deletedAlert();
   };
 

@@ -14,8 +14,9 @@ const SelfImprovementDetail = () => {
   const [searchGenre, setSearchGenre] = useState("");
   const dispatch = useDispatch();
   const searchListGenre = useSelector((state) => state.genre.searchListGenre)
+console.log(searchListGenre)
   const {genre, loading} = useSelector((state) => state.genre)
-  console.log(genre)
+  // console.log(genre)
  
 
 
@@ -59,7 +60,7 @@ const SelfImprovementDetail = () => {
   };
 
   if (searchGenre.length > 0) {
-    searchGenre = genre.filter((item) => {
+    const searchGenre = genre.filter((item) => {
       return item.title.toLowerCase().include(searchGenre.toLowerCase());
     });
   }
