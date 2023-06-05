@@ -14,9 +14,7 @@ const SelfImprovementDetail = () => {
   const [searchGenre, setSearchGenre] = useState("");
   const dispatch = useDispatch();
   const searchListGenre = useSelector((state) => state.genre.searchListGenre)
-console.log(searchListGenre)
   const {genre, loading} = useSelector((state) => state.genre)
-  // console.log(genre)
  
 
 

@@ -19,7 +19,6 @@ const Programming = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {posts, loading} = useSelector((state) => state.post);
-  console.log("tes",posts)
   let [books, setBooks] = useState([]);
   const [searchBooks, setSearchBooks] = useState("");
   const [isLoading, setIsLoading] = useState(false);

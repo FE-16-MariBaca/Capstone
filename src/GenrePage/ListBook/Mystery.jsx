@@ -18,7 +18,6 @@ const Mystery = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { postsMystery, loading } = useSelector((state) => state.postMystery);
-  console.log(postsMystery);
   let [books, setBooks] = useState();
   const [searchBooks, setSearchBooks] = useState("");
   const [isLoading, setIsloading] = useState(false);

@@ -18,7 +18,6 @@ import { getPostsSelf } from "../../redux/features/postSelfSlice";
 const SelfImprovement = () => {
   const dispatch = useDispatch();
   const { postsSelf, loading } = useSelector((state) => state.postSelf);
-  console.log("tes", postsSelf);
   const navigate = useNavigate();
   let [books, setBooks] = useState([]);
   const [searchBooks, setSearchBooks] = useState("");
