@@ -19,7 +19,7 @@ const Programming = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {posts, loading} = useSelector((state) => state.post);
-  let [books, setBooks] = useState([]);
+  const [books, setBooks] = useState([]);
   const [searchBooks, setSearchBooks] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -45,23 +45,6 @@ const Programming = () => {
   };
 
   useEffect(() => {
-    // const getAPI = async () => {
-    //   try {
-    //     const response = await axios.get(
-    //       "https://64715cc66a9370d5a41a53d8.mockapi.io/programming"
-    //     );
-    //     setIsLoading(false);
-    //     setBooks(response.data);
-    //   } catch (error) {
-    //     setIsLoading(false);
-    //   }
-    // };
-    // if (!verifyLogin) {
-    //   loginFirst();
-    //   navigate("/login");
-    // }
-    // getAPI();
-    
     dispatch(() => {
       dispatch(getPosts())
     })
@@ -70,15 +53,23 @@ const Programming = () => {
   const handleChange = (e) => {
     e.preventDefault();
     setSearchBooks(e.target.value);
+    const searchBook = e.target.value
+    
+      if (searchBook.length > 0) {
+        const book = posts.filter((i) => {
+          return i.title.toLowerCase().match(searchBook.toLowerCase());
+        });
+
+
+        setBooks(book)
+      }
   };
 
-  if (searchBooks.length > 0) {
-    books = posts.filter((i) => {
-      return i.title.toLowerCase().match(searchBooks.toLowerCase());
-    });
-  }
+  useEffect(() => {
+    setBooks(posts)
+  },[loading])
 
-  if (isLoading)
+  if (loading)
     return (
       <Container className="vh-100 d-flex justify-content-center align-items-center">
         <Spinner animation="border" variant="danger" />
@@ -89,7 +80,7 @@ const Programming = () => {
     <Container>
       <Row className="mt-5">
         <Col lg={9}>
-          <p className="fs-4 fw-semibold">Self Improvement Genre</p>
+          <p className="fs-4 fw-semibold">Programming</p>
         </Col>
         <Col lg={3}>
           <InputGroup className="mb-3 w-100">
@@ -106,7 +97,7 @@ const Programming = () => {
         </Col>
       </Row>
       <Row className="mt-3 mb-5 g-3">
-        {posts.map((item) => (
+        {books.map((item) => (
           <Col key={item.id} xs={6} sm={4} md={3} lg={2}>
             <Link
               to={`/genre/programming/${item.id}`}

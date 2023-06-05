@@ -1,37 +1,37 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { Container, Spinner, Row, Col, Button } from 'react-bootstrap';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import Comment from '../../public-components/Comment/Comment';
-import '../DetailBook.css';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Container, Spinner, Row, Col, Button } from "react-bootstrap";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import Comment from "../public-components/Comment/Comment";
+import "./DetailBook.css";
 
-const ProgrammingDetail = () => {
+const DetailPage = ({ baseAPI, endpoint }) => {
   const navigate = useNavigate();
   const [book, setBook] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const params = useParams();
 
-  let dataUser = JSON.parse(localStorage.getItem('user-info'));
-  let verifyLogin = localStorage.getItem('user-info');
+  let dataUser = JSON.parse(localStorage.getItem("user-info"));
+  let verifyLogin = localStorage.getItem("user-info");
 
   const loginFirst = () => {
     const Toast = Swal.mixin({
       toast: true,
-      position: 'top',
+      position: "top",
       showConfirmButton: false,
       timer: 2000,
       timerProgressBar: false,
       didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer);
-        toast.addEventListener('mouseleave', Swal.resumeTimer);
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
       },
     });
 
     Toast.fire({
-      icon: 'warning',
-      title: 'Silakan Masuk terlebih dahulu!',
+      icon: "warning",
+      title: "Silakan Masuk terlebih dahulu!",
     });
   };
 
@@ -42,24 +42,26 @@ const ProgrammingDetail = () => {
 
     swalWithBootstrapButtons
       .fire({
-        title: 'Success!',
-        text: 'Berhasil menambahkan bookmark.',
-        icon: 'success',
-        confirmButtonColor: '#db3635',
-        confirmButtonText: 'OK',
+        title: "Success!",
+        text: "Berhasil menambahkan bookmark.",
+        icon: "success",
+        confirmButtonColor: "#db3635",
+        confirmButtonText: "OK",
       })
       .then((result) => {
         if (result.isConfirmed) {
-          navigate('/bookmarks');
+          navigate("/bookmarks");
         }
       });
   };
 
+  // https://6475ca44e607ba4797dc9d4d.mockapi.io
   useEffect(() => {
     const getAPI = async () => {
-      // /programming -> endpoint
       try {
-        const response = await axios.get(`https://64715cc66a9370d5a41a53d8.mockapi.io/programming/${params.bookId}`);
+        const response = await axios.get(
+          `${baseAPI}/${endpoint}/${params.bookId}`
+        );
         setIsLoading(false);
         setBook(response.data);
       } catch (error) {
@@ -68,7 +70,7 @@ const ProgrammingDetail = () => {
     };
     if (!verifyLogin) {
       loginFirst();
-      navigate('/login');
+      navigate("/login");
     }
     getAPI();
   }, [params.bookId]);
@@ -82,9 +84,17 @@ const ProgrammingDetail = () => {
 
   const handleBookmark = (e) => {
     e.preventDefault();
-    const dataBook = { email: dataUser && dataUser.email, cover: book.cover, title: book.title, link: window.location.href };
+    const dataBook = {
+      email: dataUser && dataUser.email,
+      cover: book.cover,
+      title: book.title,
+      link: window.location.href,
+    };
     try {
-      axios.post('https://64670f90ba7110b663ae7915.mockapi.io/bookmarks', dataBook);
+      axios.post(
+        "https://64670f90ba7110b663ae7915.mockapi.io/bookmarks",
+        dataBook
+      );
       alert();
     } catch (error) {
       console.log(error);
@@ -95,7 +105,11 @@ const ProgrammingDetail = () => {
     <Container className="mt-5">
       <Row>
         <Col lg={5} className="d-flex justify-content-center">
-          <img src={book.cover} alt="Cover" className="w-50 book-cover mx-auto rounded img-fluid mb-3" />
+          <img
+            src={book.cover}
+            alt="Cover"
+            className="w-50 book-cover mx-auto rounded img-fluid mb-3"
+          />
         </Col>
         <Col lg={7}>
           <span className="fs-4 fw-semibold">{book.title}</span>
@@ -123,13 +137,13 @@ const ProgrammingDetail = () => {
           <p className="book-synopsis p-1">{book.synopsis}</p>
 
           <div className="d-flex justify-content-end mb-5 justify-content-between">
-            <Link to="/genre/programming">
+            <Link to="/genre/mystery">
               <Button className="btn-back">Kembali</Button>
             </Link>
             <Button onClick={handleBookmark} className="btn-bookmark me-2">
               <i className="bx bx-heart"></i> Bookmark
             </Button>
-            <Link to={`/genre/programming/read/${book.id}`}>
+            <Link to={`/genre/mystery/read/${book.id}`}>
               <Button className="btn-read-book">Mulai Baca</Button>
             </Link>
           </div>
@@ -140,4 +154,4 @@ const ProgrammingDetail = () => {
   );
 };
 
-export default ProgrammingDetail;
+export default DetailPage;

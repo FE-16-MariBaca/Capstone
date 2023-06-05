@@ -44,6 +44,7 @@ const PopularThisWeek = () => {
         className="mySwiper"
       >
         {listPopularBooks.map((item, index) => (
+          //buat
           <SwiperSlide key={index} className="swiper-slide-this-week">
             <Card className="border-0 bg-light">
               <Card.Img variant="top" className="img-book" src={item.img} />

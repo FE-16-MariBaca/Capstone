@@ -17,11 +17,10 @@ import { getPostsSelf } from "../../redux/features/postSelfSlice";
 
 const SelfImprovement = () => {
   const dispatch = useDispatch();
-  const { postsSelf, loading } = useSelector((state) => state.postSelf);
   const navigate = useNavigate();
-  let [books, setBooks] = useState([]);
+  const { postsSelf, loading } = useSelector((state) => state.postSelf);
+  const [books, setBooks] = useState(postsSelf);
   const [searchBooks, setSearchBooks] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   let verifyLogin = localStorage.getItem("user-info");
 
@@ -53,15 +52,22 @@ const SelfImprovement = () => {
   const handleChange = (e) => {
     e.preventDefault();
     setSearchBooks(e.target.value);
+    const searchBook = e.target.value
+    
+      if (searchBook.length > 0) {
+        const book = postsSelf.filter((i) => {
+          return i.title.toLowerCase().match(searchBook.toLowerCase());
+        });
+        setBooks(book)
+      }
+
+
   };
+  useEffect(() => {
+    setBooks(postsSelf)
+  },[loading])
 
-  if (searchBooks.length > 0) {
-    books = books.filter((i) => {
-      return i.title.toLowerCase().match(searchBooks.toLowerCase());
-    });
-  }
-
-  if (isLoading)
+  if (loading)
     return (
       <Container className="vh-100 d-flex justify-content-center align-items-center">
         <Spinner animation="border" variant="danger" />
@@ -89,7 +95,7 @@ const SelfImprovement = () => {
         </Col>
       </Row>
       <Row className="mt-3 mb-5 g-3">
-        {postsSelf.map((item) => (
+        {books.map((item) => (
           <Col key={item.id} xs={6} sm={4} md={3} lg={2}>
             <Link
               to={`/genre/self-improvement/${item.id}`}

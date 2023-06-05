@@ -18,7 +18,7 @@ const Mystery = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { postsMystery, loading } = useSelector((state) => state.postMystery);
-  let [books, setBooks] = useState();
+  const [books, setBooks] = useState(postsMystery);
   const [searchBooks, setSearchBooks] = useState("");
   const [isLoading, setIsloading] = useState(false);
   let verifyLogin = localStorage.getItem("user.info");
@@ -51,13 +51,20 @@ const Mystery = () => {
   const handleChange = (e) => {
     e.preventDefault();
     setSearchBooks(e.target.value);
+    const searchBook = e.target.value
+    if (searchBook.length > 0) {
+     const book = postsMystery.filter((i) => {
+        return i.title.toLowerCase().match(searchBook.toLocaleLowerCase());
+      });
+
+      setBooks(book)
+    }
   };
 
-  if (searchBooks.length > 0) {
-    books = books.filter((i) => {
-      return i.title.toLowerCase().match(searchBooks.toLocaleLowerCase());
-    });
-  }
+  useEffect(() => {
+    setBooks(postsMystery)
+  },[loading])
+
 
   if (isLoading) {
     return (
@@ -89,7 +96,7 @@ const Mystery = () => {
       </Row>
 
       <Row className="mt-3 mb-5 g-3">
-        {postsMystery.map((item) => (
+        {books.map((item) => (
           <Col key={item.id} xs={6} sm={4} md={3} lg={2}>
             <Link
               to={`/genre/mystery/${item.id}`}

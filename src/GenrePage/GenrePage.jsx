@@ -11,25 +11,19 @@ import { getGenre } from "../redux/features/featuresGenre/listGenre";
 
 const SelfImprovementDetail = () => {
   const navigate = useNavigate();
-  const [searchGenre, setSearchGenre] = useState("");
   const dispatch = useDispatch();
-  const searchListGenre = useSelector((state) => state.genre.searchListGenre)
-  const {genre, loading} = useSelector((state) => state.genre)
- 
-
+  const { genre, loading } = useSelector((state) => state.genre);
+  const [listGenre, setListGenre] = useState(genre);
+  const [searchGenres, setSearchGenres] = useState("");
 
   useEffect(() => {
-    if (!verifyLogin) {
-      loginFirst();
-      navigate("/login");
-    }
-      dispatch(getGenre())
-    
+    // if (!verifyLogin) {
+    //   loginFirst();
+    //   navigate("/login");
+    // }
+    dispatch(getGenre());
   }, []);
 
-
-
-  
   let verifyLogin = localStorage.getItem("user-info");
 
   const loginFirst = () => {
@@ -51,17 +45,18 @@ const SelfImprovementDetail = () => {
     });
   };
 
-
   const handleChange = (e) => {
     e.preventDefault();
-    dispatch(handleChange(e.target.value));
-  };
+    setSearchGenres(e.target.value);
+    const searchGenre = e.target.value;
 
-  if (searchGenre.length > 0) {
-    const searchGenre = genre.filter((item) => {
-      return item.title.toLowerCase().include(searchGenre.toLowerCase());
-    });
-  }
+    if (searchGenre.length > 0) {
+      const Genre = genre.filter((item) => {
+        return item.title.toLowerCase().match(searchGenre.toLowerCase());
+      });
+      setListGenre(Genre);
+    }
+  };
 
   return (
     <>
@@ -74,7 +69,7 @@ const SelfImprovementDetail = () => {
             <InputGroup className="mb-3 w-100">
               <Form.Control
                 type="text"
-                value={searchListGenre}
+                value={searchGenres}
                 onChange={handleChange}
                 placeholder="Search Genre"
               />
@@ -86,7 +81,7 @@ const SelfImprovementDetail = () => {
         </Row>
 
         <Row className="mt-3 g-2">
-          {genre.map((item) => (
+          {listGenre.map((item) => (
             <Col key={item.id} md={6} lg={4}>
               <Link to={item.url}>
                 <Card className="bg-dark text-white card-genre">
