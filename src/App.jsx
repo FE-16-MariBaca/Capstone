@@ -23,8 +23,9 @@ import MysteryDetail from './DetailPage/ListDetail/MysteryDetail';
 import Philosophy from './GenrePage/ListBook/Philosophy';
 import PhilosophyDetail from './DetailPage/ListDetail/PhilosophyDetail';
 import PhilosophyRead from './ReadPage/PhilosophyRead';
-import History from './GenrePage/ListBook/History';
-import DetailPage from './DetailPage';
+import HistoryDetail from './DetailPage/ListDetail/HistoryDetail'
+import HistoryRead from './ReadPage/HistoryRead';
+import  History  from './GenrePage/ListBook/History';
 
 function App() {
   return (
@@ -37,23 +38,27 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/genre" element={<GenrePage />} />
         <Route path="/bookmarks" element={<BookmarksPage />} />
+        {/* setting */}
         <Route path="/setting/profile" element={<SettingProfile />} />
         <Route path="/setting/privacy" element={<SettingPrivacy />} />
+        {/* list genre */}
         <Route path="/genre/self-improvement" element={<SelfImprovement />} />
         <Route path="/genre/programming" element={<Programming />} />
         <Route path="/genre/mystery" element={<Mystery />} />
         <Route path="/genre/philosophy" element={<Philosophy />} />
-        <Route path="/genre/history" element={<History/>} />
+        <Route path="/genre/history" element={<History />} />
         {/* Detail page */}
-        <Route path="/genre/programming/:bookId" element={<DetailPage baseAPI="https://64715cc66a9370d5a41a53d8.mockapi.io" endpoint="programming" />} />
-        <Route path="/genre/philosophy/:bookId" element={<DetailPage baseAPI="https://647ad0d0d2e5b6101db08cbd.mockapi.io" endpoint="philosophy" />} />
-        <Route path="/genre/mystery/:bookId" element={<DetailPage baseAPI="https://6475ca44e607ba4797dc9d4d.mockapi.io" endpoint="MysteryBookList" />} />
-        <Route path="/genre/self-improvement/:bookId" element={<DetailPage baseAPI="https://64715cc66a9370d5a41a53d8.mockapi.io" endpoint="selfimprovement" />} />
-        {/* detail book */}
+        <Route path="/genre/programming/:bookId" element={<ProgrammingDetail />} />
+        <Route path="/genre/self-improvement/:bookId" element={<SelfImprovementDetail />} />
+        <Route path="/genre/philosophy/:bookId" element={<PhilosophyDetail />} />
+        <Route path="/genre/mystery/:bookId" element={<MysteryDetail />} />
+        <Route path="/genre/history/:bookId" element={<HistoryDetail />} />
+        {/* read book */}
         <Route path="/genre/self-improvement/read/:bookId" element={<SelfImprovementRead />} />
         <Route path="/genre/programming/read/:bookId" element={<ProgrammingRead />} />
         <Route path="/genre/mystery/read/:bookId" element={<MysteryRead />} />
         <Route path="/genre/philosophy/read/:bookId" element={<PhilosophyRead />} />
+        <Route path="/genre/history/read/:bookId" element={<HistoryRead />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

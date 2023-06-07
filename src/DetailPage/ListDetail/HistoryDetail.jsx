@@ -1,19 +1,18 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Container, Spinner, Row, Col, Button } from "react-bootstrap";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import Comment from "../public-components/Comment/Comment";
-import "./DetailBook.css";
+import Comment from "../../public-components/Comment/Comment";
+import "../DetailBook.css";
 
-const DetailPage = ({ baseAPI, endpoint }) => {
+const HistoryDetail = () => {
   const navigate = useNavigate();
   const [book, setBook] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const params = useParams();
 
-  let dataUser = JSON.parse(localStorage.getItem("user-info"));
+  let dataUser = JSON.parse(localStorage.getItem("user.info"));
   let verifyLogin = localStorage.getItem("user-info");
 
   const loginFirst = () => {
@@ -55,12 +54,11 @@ const DetailPage = ({ baseAPI, endpoint }) => {
       });
   };
 
-  // https://6475ca44e607ba4797dc9d4d.mockapi.io
   useEffect(() => {
     const getAPI = async () => {
       try {
         const response = await axios.get(
-          `${baseAPI}/${endpoint}/${params.bookId}`
+          `https://647ad0d0d2e5b6101db08cbd.mockapi.io/history/${params.bookId}`
         );
         setIsLoading(false);
         setBook(response.data);
@@ -137,13 +135,13 @@ const DetailPage = ({ baseAPI, endpoint }) => {
           <p className="book-synopsis p-1">{book.synopsis}</p>
 
           <div className="d-flex justify-content-end mb-5 justify-content-between">
-            <Link to="/genre/mystery">
+            <Link to="/genre/history/">
               <Button className="btn-back">Kembali</Button>
             </Link>
             <Button onClick={handleBookmark} className="btn-bookmark me-2">
               <i className="bx bx-heart"></i> Bookmark
             </Button>
-            <Link to={`/genre/mystery/read/${book.id}`}>
+            <Link to={`/genre/history/read/${book.id}`}>
               <Button className="btn-read-book">Mulai Baca</Button>
             </Link>
           </div>
@@ -153,5 +151,4 @@ const DetailPage = ({ baseAPI, endpoint }) => {
     </Container>
   );
 };
-
-export default DetailPage;
+export default HistoryDetail;

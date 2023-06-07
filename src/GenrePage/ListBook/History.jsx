@@ -18,7 +18,6 @@ const History = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { postsHistory, loading } = useSelector((state) => state.postHistory);
-  console.log(postsHistory)
   const [books, setBooks] = useState(postsHistory);
   const [searchBooks, setSearchBooks] = useState("");
   let verifyLogin = localStorage.getItem("user.info");
