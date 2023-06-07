@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import "./GenrePage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getGenre } from "../redux/features/featuresGenre/listGenre";
-// import { handleSearch } from "../redux/features/featuresGenre/listGenre";
+
 
 const SelfImprovementDetail = () => {
   const navigate = useNavigate();
@@ -57,6 +57,12 @@ const SelfImprovementDetail = () => {
       setListGenre(Genre);
     }
   };
+
+  useEffect(() => {
+    setListGenre(genre)
+  },[loading])
+
+
 
   return (
     <>
