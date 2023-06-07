@@ -11,10 +11,8 @@ import { useEffect } from 'react';
 
 const PopularThisWeek = () => {
   const dispatch = useDispatch()
-
   const {postsPhilosophy, loading} = useSelector((state) => state.postPhilosophy)
   const [listPopularBooks, setListPopularBooks] = useState(postsPhilosophy)
-
 
   useEffect(() => {
     dispatch(() => {
@@ -23,7 +21,7 @@ const PopularThisWeek = () => {
   },[])
 
 
-  useEffect(() => {
+  useEffect(() =>{
     setListPopularBooks(postsPhilosophy)
   },[loading])
 
