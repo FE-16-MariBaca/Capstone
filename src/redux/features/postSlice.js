@@ -5,7 +5,7 @@ export const getPosts = createAsyncThunk(
   "posts/getPosts",
   async () => {
     try {
-      const response = await axios.get('https://64715cc66a9370d5a41a53d8.mockapi.io/programming');
+      const response = await new axios.get('https://64715cc66a9370d5a41a53d8.mockapi.io/programming');
       return response.data;
     } catch (error) {
       console.error(error);

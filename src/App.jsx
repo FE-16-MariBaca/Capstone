@@ -26,6 +26,7 @@ import PhilosophyRead from './ReadPage/PhilosophyRead';
 import HistoryDetail from './DetailPage/ListDetail/HistoryDetail'
 import HistoryRead from './ReadPage/HistoryRead';
 import  History  from './GenrePage/ListBook/History';
+import PopularThisWeek from './HomePage/components/PopularThisWeek';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<HomePage />} />
+        {/* <Route path="/home/populer" element={<PopularThisWeek />} /> */}
         <Route path="/genre" element={<GenrePage />} />
         <Route path="/bookmarks" element={<BookmarksPage />} />
         {/* setting */}
