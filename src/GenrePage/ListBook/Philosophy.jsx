@@ -44,9 +44,12 @@ const Philosophy = () => {
   };
 
   useEffect(() => {
-    dispatch(() => {
+     if(!verifyLogin){
+      loginFirst()
+      navigate('/login')
+     }
       dispatch(getPostPhilosophy());
-    });
+    
   }, []);
 
   const handleChange = (e) => {

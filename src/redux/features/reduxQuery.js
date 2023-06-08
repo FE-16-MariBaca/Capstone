@@ -9,10 +9,10 @@ export const BookAPI = createApi({
     getAllProgramming: builder.query({
       query: () => "/programming",
     }),
-    getAllMystery: builder.query({
-      query: () => "/history",
+    getAllSelfimprovement: builder.query({
+      query: () => "/selfimprovement",
     }),
   }),
 });
 
-export const { useGetAllProgrammingQuery, useGetAllMysteryQuery } = BookAPI;
+export const { useGetAllProgrammingQuery, useGetAllSelfimprovementQuery } = BookAPI;

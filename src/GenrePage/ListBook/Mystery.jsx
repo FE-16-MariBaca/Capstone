@@ -43,9 +43,11 @@ const Mystery = () => {
   };
 
   useEffect(() => {
-    dispatch(() => {
+     if(!verifyLogin){
+      loginFirst()
+      navigate('/login')
+     }
       dispatch(getPostMastery());
-    });
   }, []);
 
   const handleChange = (e) => {

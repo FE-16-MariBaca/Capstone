@@ -17,10 +17,10 @@ const SelfImprovementDetail = () => {
   const [searchGenres, setSearchGenres] = useState("");
 
   useEffect(() => {
-    // if (!verifyLogin) {
-    //   loginFirst();
-    //   navigate("/login");
-    // }
+    if (!verifyLogin) {
+      loginFirst();
+      navigate("/login");
+    }
     dispatch(getGenre());
   }, []);
 

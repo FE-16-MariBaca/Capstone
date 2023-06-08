@@ -42,9 +42,11 @@ const History = () => {
   };
 
   useEffect(() => {
-    dispatch(() => {
+    if(!verifyLogin){
+      loginFirst()
+      navigate('/login')
+    }
       dispatch(getPostHistory());
-    });
   }, []);
 
   const handleChange = (e) => {

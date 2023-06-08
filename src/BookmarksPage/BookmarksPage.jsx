@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import empty from '../assets/no-bookmark.png';
 import './BookmarksPage.css';
+import { version } from 'react-dom';
 
 const BookmarksPage = () => {
   const [dataBookmark, setDataBookmark] = useState([]);
@@ -12,6 +13,7 @@ const BookmarksPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
+  let verifyLogin = localStorage.getItem("user-info")
   let dataUser = JSON.parse(localStorage.getItem('user-info'));
 
   useEffect(() => {
@@ -24,6 +26,7 @@ const BookmarksPage = () => {
         setIsLoading(true);
       }
     };
+    
     getAPI();
   }, []);
 
@@ -35,6 +38,7 @@ const BookmarksPage = () => {
   };
 
   const deletedAlert = () => {
+    navigate('/home');
     const swalWithBootstrapButtons = Swal.mixin({
       buttonsStyling: true,
     });
@@ -49,7 +53,6 @@ const BookmarksPage = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          navigate('/home');
         }
       });
   };
@@ -64,6 +67,14 @@ const BookmarksPage = () => {
       return i.title.toLowerCase().match(searchBooks.toLowerCase());
     });
   }
+
+  useEffect(() => {
+    if (!verifyLogin) {
+      loginFirst();
+      navigate("/login");
+    }
+  })
+
 
   if (isLoading)
     return (

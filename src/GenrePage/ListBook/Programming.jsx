@@ -13,15 +13,13 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { getPosts } from "../../redux/features/postSlice";
+// import { getPosts } from "../../redux/features/postSlice";
 import { useGetAllProgrammingQuery } from "../../redux/features/reduxQuery";
 
 const Programming = () => {
   const navigate = useNavigate();
   const { data, isLoading: loading } = useGetAllProgrammingQuery();
-  console.log(loading);
-  const dispatch = useDispatch();
-  // const { posts, loading } = useSelector((state) => state.post);
+  // const dispatch = useDispatch();
   const [books, setBooks] = useState(data);
   const [searchBooks, setSearchBooks] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -47,11 +45,7 @@ const Programming = () => {
     });
   };
 
-  // useEffect(() => {
-  //   dispatch(() => {
-  //     dispatch(getPosts())
-  //   })
-  // },[]);
+
 
   const handleChange = (e) => {
     e.preventDefault();
