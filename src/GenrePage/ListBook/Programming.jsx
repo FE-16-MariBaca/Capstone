@@ -14,12 +14,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { getPosts } from "../../redux/features/postSlice";
+import { useGetAllProgrammingQuery } from "../../redux/features/reduxQuery";
 
 const Programming = () => {
   const navigate = useNavigate();
+  const { data, isLoading: loading } = useGetAllProgrammingQuery();
+  console.log(loading);
   const dispatch = useDispatch();
-  const {posts, loading} = useSelector((state) => state.post);
-  const [books, setBooks] = useState([]);
+  // const { posts, loading } = useSelector((state) => state.post);
+  const [books, setBooks] = useState(data);
   const [searchBooks, setSearchBooks] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -44,30 +47,29 @@ const Programming = () => {
     });
   };
 
-  useEffect(() => {
-    dispatch(() => {
-      dispatch(getPosts())
-    })
-  },[]);
+  // useEffect(() => {
+  //   dispatch(() => {
+  //     dispatch(getPosts())
+  //   })
+  // },[]);
 
   const handleChange = (e) => {
     e.preventDefault();
     setSearchBooks(e.target.value);
-    const searchBook = e.target.value
-    
-      if (searchBook.length > 0) {
-        const book = posts.filter((i) => {
-          return i.title.toLowerCase().match(searchBook.toLowerCase());
-        });
+    const searchBook = e.target.value;
 
+    if (searchBook.length > 0) {
+      const book = data.filter((i) => {
+        return i.title.toLowerCase().match(searchBook.toLowerCase());
+      });
 
-        setBooks(book)
-      }
+      setBooks(book);
+    }
   };
 
   useEffect(() => {
-    setBooks(posts)
-  },[loading])
+    setBooks(data);
+  }, [loading]);
 
   if (loading)
     return (
@@ -97,7 +99,7 @@ const Programming = () => {
         </Col>
       </Row>
       <Row className="mt-3 mb-5 g-3">
-        {books.map((item) => (
+        {books?.map((item) => (
           <Col key={item.id} xs={6} sm={4} md={3} lg={2}>
             <Link
               to={`/genre/programming/${item.id}`}

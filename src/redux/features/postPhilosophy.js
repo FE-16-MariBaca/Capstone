@@ -23,7 +23,6 @@ const postsPhilosophySlice = createSlice({
     postsPhilosophy: [],
     loading: false,
   },
-  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getPostPhilosophy.pending, (state) => {

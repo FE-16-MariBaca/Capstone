@@ -16,9 +16,6 @@ export const getGenre = createAsyncThunk("genre/getGenre", async () => {
 
 
 
-
-
-
 const genreSlice = createSlice({
     name: "genre",
     initialState: {
