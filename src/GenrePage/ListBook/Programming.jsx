@@ -13,16 +13,17 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
-// import { getPosts } from "../../redux/features/postSlice";
-import { useGetAllProgrammingQuery } from "../../redux/features/reduxQuery";
+import { getPostProgramming } from "../../redux/features/postProgramming";
+// import { useGetAllProgrammingQuery } from "../../redux/features/reduxQuery";
 
 const Programming = () => {
   const navigate = useNavigate();
-  const { data, isLoading: loading } = useGetAllProgrammingQuery();
-  // const dispatch = useDispatch();
-  const [books, setBooks] = useState(data);
+  const {postsProgramming, loading} = useSelector((state) => state.postProgramming)
+  console.log(postsProgramming)
+  const dispatch = useDispatch();
+  const [books, setBooks] = useState(postsProgramming);
   const [searchBooks, setSearchBooks] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
 
   let verifyLogin = localStorage.getItem("user-info");
 
@@ -45,6 +46,14 @@ const Programming = () => {
     });
   };
 
+  useEffect(() => {
+    if(!verifyLogin){
+      loginFirst()
+      navigate('/login')
+     }
+     dispatch(getPostProgramming())
+  },[])
+
 
 
   const handleChange = (e) => {
@@ -53,7 +62,7 @@ const Programming = () => {
     const searchBook = e.target.value;
 
     if (searchBook.length > 0) {
-      const book = data.filter((i) => {
+      const book = postsProgramming.filter((i) => {
         return i.title.toLowerCase().match(searchBook.toLowerCase());
       });
 
@@ -62,7 +71,7 @@ const Programming = () => {
   };
 
   useEffect(() => {
-    setBooks(data);
+    setBooks(postsProgramming);
   }, [loading]);
 
   if (loading)

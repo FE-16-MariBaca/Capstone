@@ -13,14 +13,16 @@ import {
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetAllSelfimprovementQuery } from "../../redux/features/reduxQuery";
+import { getPostsSelf } from "../../redux/features/postSelfSlice";
+// import { useGetAllSelfimprovementQuery } from "../../redux/features/reduxQuery";
 
 
 const SelfImprovement = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {data, isLoading: loading} = useGetAllSelfimprovementQuery()
-  const [books, setBooks] = useState(data);
+  // const {data, isLoading: loading} = useGetAllSelfimprovementQuery()
+  const {postsSelf, loading} = useSelector((state) => state.postSelf)
+  const [books, setBooks] = useState(postsSelf);
   const [searchBooks, setSearchBooks] = useState("");
 
   let verifyLogin = localStorage.getItem("user-info");
@@ -44,6 +46,14 @@ const SelfImprovement = () => {
     });
   };
 
+  useEffect(() => {
+    if(!verifyLogin){
+      loginFirst()
+      navigate('/login')
+    }
+    dispatch(getPostsSelf())
+  }, [])
+
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -51,7 +61,7 @@ const SelfImprovement = () => {
     const searchBook = e.target.value
     
       if (searchBook.length > 0) {
-        const book = data.filter((i) => {
+        const book = postsSelf.filter((i) => {
           return i.title.toLowerCase().match(searchBook.toLowerCase());
         });
         setBooks(book)
@@ -60,7 +70,7 @@ const SelfImprovement = () => {
 
   };
   useEffect(() => {
-    setBooks(data)
+    setBooks(postsSelf)
   },[loading])
 
   if (loading)

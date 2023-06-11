@@ -16,6 +16,7 @@ const SelfImprovementDetail = () => {
   const [listGenre, setListGenre] = useState(genre);
   const [searchGenres, setSearchGenres] = useState("");
 
+  let verifyLogin = localStorage.getItem("user-info");
   useEffect(() => {
     if (!verifyLogin) {
       loginFirst();
@@ -24,7 +25,6 @@ const SelfImprovementDetail = () => {
     dispatch(getGenre());
   }, []);
 
-  let verifyLogin = localStorage.getItem("user-info");
 
   const loginFirst = () => {
     const Toast = Swal.mixin({

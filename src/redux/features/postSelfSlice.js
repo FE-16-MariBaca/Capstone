@@ -23,7 +23,6 @@ const postsSelfSlice = createSlice({
     postsSelf: [],
     loading: false,
   },
-  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getPostsSelf.pending, (state) => {

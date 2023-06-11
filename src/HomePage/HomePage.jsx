@@ -37,7 +37,7 @@ const HomePage = () => {
       loginFirst();
       navigate("/login");
     }
-  }, [verifyLogin]);
+  }, []);
 
   return (
     <>
