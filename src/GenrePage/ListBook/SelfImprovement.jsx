@@ -1,77 +1,65 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import axios from "axios";
-import { useEffect, useState } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  InputGroup,
-  Card,
-  Spinner,
-} from "react-bootstrap";
-import { useNavigate, Link } from "react-router-dom";
-import Swal from "sweetalert2";
-import { useDispatch, useSelector } from "react-redux";
-import { getPostsSelf } from "../../redux/features/postSelfSlice";
+// import axios from "axios";
+import { useEffect, useState } from 'react';
+import { Container, Row, Col, Form, InputGroup, Card, Spinner } from 'react-bootstrap';
+import { useNavigate, Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPostsSelf } from '../../redux/features/postSelfSlice';
 // import { useGetAllSelfimprovementQuery } from "../../redux/features/reduxQuery";
-
 
 const SelfImprovement = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const {data, isLoading: loading} = useGetAllSelfimprovementQuery()
-  const {postsSelf, loading} = useSelector((state) => state.postSelf)
+  const { postsSelf, loading } = useSelector((state) => state.postSelf);
   const [books, setBooks] = useState(postsSelf);
-  const [searchBooks, setSearchBooks] = useState("");
+  const [searchBooks, setSearchBooks] = useState('');
 
-  let verifyLogin = localStorage.getItem("user-info");
+  let verifyLogin = localStorage.getItem('user-info');
 
   const loginFirst = () => {
     const Toast = Swal.mixin({
       toast: true,
-      position: "top",
+      position: 'top',
       showConfirmButton: false,
       timer: 2000,
       timerProgressBar: false,
       didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
       },
     });
 
     Toast.fire({
-      icon: "warning",
-      title: "Silakan Masuk terlebih dahulu!",
+      icon: 'warning',
+      title: 'Silakan Masuk terlebih dahulu!',
     });
   };
 
   useEffect(() => {
-    if(!verifyLogin){
-      loginFirst()
-      navigate('/login')
+    if (!verifyLogin) {
+      loginFirst();
+      navigate('/login');
     }
-    dispatch(getPostsSelf())
-  }, [])
-
+    dispatch(getPostsSelf());
+  }, []);
 
   const handleChange = (e) => {
     e.preventDefault();
     setSearchBooks(e.target.value);
-    const searchBook = e.target.value
-    
-      if (searchBook.length > 0) {
-        const book = postsSelf.filter((i) => {
-          return i.title.toLowerCase().match(searchBook.toLowerCase());
-        });
-        setBooks(book)
-      }
+    const searchBook = e.target.value;
 
-
+    if (searchBook.length > 0) {
+      const book = postsSelf.filter((i) => {
+        return i.title.toLowerCase().match(searchBook.toLowerCase());
+      });
+      setBooks(book);
+    }
   };
   useEffect(() => {
-    setBooks(postsSelf)
-  },[loading])
+    setBooks(postsSelf);
+  }, [loading]);
 
   if (loading)
     return (
@@ -88,12 +76,7 @@ const SelfImprovement = () => {
         </Col>
         <Col lg={3}>
           <InputGroup className="mb-3 w-100">
-            <Form.Control
-              type="text"
-              value={searchBooks}
-              onChange={handleChange}
-              placeholder="Search Book"
-            />
+            <Form.Control type="text" value={searchBooks} onChange={handleChange} placeholder="Search Book" />
             <InputGroup.Text>
               <i className="bx bx-search-alt-2"></i>
             </InputGroup.Text>
@@ -103,20 +86,11 @@ const SelfImprovement = () => {
       <Row className="mt-3 mb-5 g-3">
         {books?.map((item) => (
           <Col key={item.id} xs={6} sm={4} md={3} lg={2}>
-            <Link
-              to={`/genre/self-improvement/${item.id}`}
-              className="text-decoration-none"
-            >
+            <Link to={`/genre/self-improvement/${item.id}`} className="text-decoration-none">
               <Card className="bg-light">
-                <Card.Img
-                  variant="top"
-                  src={item.cover}
-                  className="img-genre-book"
-                />
+                <Card.Img variant="top" src={item.cover} className="img-genre-book" />
                 <Card.Body>
-                  <Card.Text className="text-black title-genre-book">
-                    {item.title}
-                  </Card.Text>
+                  <Card.Text className="text-black title-genre-book">{item.title}</Card.Text>
                 </Card.Body>
               </Card>
             </Link>

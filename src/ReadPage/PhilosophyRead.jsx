@@ -1,7 +1,7 @@
-import axios from "axios";
-import { Button, Container, Spinner } from "react-bootstrap";
-import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import axios from 'axios';
+import { Button, Container, Spinner } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 
 const PhilosophyRead = () => {
   const [book, setBook] = useState({});
@@ -11,16 +11,14 @@ const PhilosophyRead = () => {
   useEffect(() => {
     const getAPI = async () => {
       try {
-        const response = await axios.get(
-          `https://647ad0d0d2e5b6101db08cbd.mockapi.io/philosophy/${params.bookId}`
-        );
+        const response = await axios.get(`https://647ad0d0d2e5b6101db08cbd.mockapi.io/philosophy/${params.bookId}`);
         setIsLoading(false);
         setBook(response.data);
       } catch (error) {
         setIsLoading(false);
       }
     };
-    getAPI()
+    getAPI();
   }, [params.bookId]);
 
   if (isLoading)
@@ -32,19 +30,19 @@ const PhilosophyRead = () => {
 
   return (
     <>
-        <Container>
-            <Link to={`/genre/philosophy/${book.id}`}>
-                <Button className="btn-back my-5">kembali</Button>
-            </Link>
-            <div className="mb-4">
-                <h1 className="fs-3 fw-semibold text-center">{book.title}</h1>
-                <h2 className="text-end fs-5 fst-italic">{book.author}</h2>
-            </div>
+      <Container>
+        <Link to={`/genre/philosophy/${book.id}`}>
+          <Button className="btn-back my-5">Kembali</Button>
+        </Link>
+        <div className="mb-4">
+          <h1 className="fs-3 fw-semibold text-center">{book.title}</h1>
+          <h2 className="text-end fs-5 fst-italic">{book.author}</h2>
+        </div>
 
-            <iframe src={book.link} className="w-100 vh-100" allow="autoplay"></iframe>
-        </Container>
+        <iframe src={book.link} className="w-100 vh-100" allow="autoplay"></iframe>
+      </Container>
     </>
-  )
+  );
 };
 
 export default PhilosophyRead;

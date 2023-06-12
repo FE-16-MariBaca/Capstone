@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import empty from '../assets/no-bookmark.png';
 import './BookmarksPage.css';
-import { version } from 'react-dom';
+// import { version } from 'react-dom';
 
 const BookmarksPage = () => {
   const [dataBookmark, setDataBookmark] = useState([]);
@@ -13,7 +13,7 @@ const BookmarksPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  let verifyLogin = localStorage.getItem("user-info")
+  let verifyLogin = localStorage.getItem('user-info');
   let dataUser = JSON.parse(localStorage.getItem('user-info'));
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const BookmarksPage = () => {
         setIsLoading(true);
       }
     };
-    
+
     getAPI();
   }, []);
 
@@ -53,8 +53,28 @@ const BookmarksPage = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
+          navigate('/home');
         }
       });
+  };
+
+  const loginFirst = () => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: false,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      },
+    });
+
+    Toast.fire({
+      icon: 'warning',
+      title: 'Silakan Masuk terlebih dahulu!',
+    });
   };
 
   const handleDelete = (id) => {
@@ -71,10 +91,9 @@ const BookmarksPage = () => {
   useEffect(() => {
     if (!verifyLogin) {
       loginFirst();
-      navigate("/login");
+      navigate('/login');
     }
-  })
-
+  });
 
   if (isLoading)
     return (

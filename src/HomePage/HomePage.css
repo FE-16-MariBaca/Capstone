@@ -24,7 +24,7 @@
 }
 /* Popular This Week & New Releases */
 .img-book {
-  max-height: 14rem;
+  height: 14rem;
   object-fit: contain !important;
 }
 .title-book {
