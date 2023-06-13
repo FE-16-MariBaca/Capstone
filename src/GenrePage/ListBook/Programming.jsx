@@ -14,12 +14,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { getPostProgramming } from "../../redux/features/postProgramming";
-// import { useGetAllProgrammingQuery } from "../../redux/features/reduxQuery";
+
 
 const Programming = () => {
   const navigate = useNavigate();
   const {postsProgramming, loading} = useSelector((state) => state.postProgramming)
-  console.log(postsProgramming)
   const dispatch = useDispatch();
   const [books, setBooks] = useState(postsProgramming);
   const [searchBooks, setSearchBooks] = useState("");

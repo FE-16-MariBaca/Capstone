@@ -21,6 +21,7 @@ const Mystery = () => {
   const [books, setBooks] = useState(postsMystery);
   const [searchBooks, setSearchBooks] = useState("");
   const [isLoading, setIsloading] = useState(false);
+  let dataUser = JSON.parse(localStorage.getItem("user-info"));
   let verifyLogin = localStorage.getItem("user.info");
 
   const loginFirst = () => {
@@ -43,32 +44,31 @@ const Mystery = () => {
   };
 
   useEffect(() => {
-     if(!verifyLogin){
-      loginFirst()
-      navigate('/login')
-     }
-      dispatch(getPostMastery());
+    if (!dataUser && !verifyLogin) {
+      loginFirst();
+      navigate("/login");
+    }
+    dispatch(getPostMastery());
   }, []);
 
   const handleChange = (e) => {
     e.preventDefault();
     setSearchBooks(e.target.value);
-    const searchBook = e.target.value
+    const searchBook = e.target.value;
     if (searchBook.length > 0) {
-     const book = postsMystery.filter((i) => {
+      const book = postsMystery.filter((i) => {
         return i.title.toLowerCase().match(searchBook.toLocaleLowerCase());
       });
 
-      setBooks(book)
+      setBooks(book);
     }
   };
 
   useEffect(() => {
-    setBooks(postsMystery)
-  },[loading])
+    setBooks(postsMystery);
+  }, [loading]);
 
-
-  if (isLoading) {
+  if (loading) {
     return (
       <Container>
         <Spinner animation="border" variant="danger" />

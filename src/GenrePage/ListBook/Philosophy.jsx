@@ -16,13 +16,15 @@ import { getPostPhilosophy } from "../../redux/features/postPhilosophy";
 
 const Philosophy = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { postsPhilosophy, loading } = useSelector(
     (state) => state.postPhilosophy
-  );
+    );
+  const dispatch = useDispatch();
   const [books, setBooks] = useState(postsPhilosophy);
   const [searchBooks, setSearchBooks] = useState("");
+  let dataUser = JSON.parse(localStorage.getItem('user-info'))
   let verifyLogin = localStorage.getItem("user.info");
+
 
   const loginFirst = () => {
     const Toast = Swal.mixin({
@@ -44,7 +46,8 @@ const Philosophy = () => {
   };
 
   useEffect(() => {
-     if(!verifyLogin){
+    //ketika masuk di dalam genre page masih diminta login padahal sudah login!!
+     if(!dataUser && !verifyLogin){
       loginFirst()
       navigate('/login')
      }
@@ -100,7 +103,7 @@ const Philosophy = () => {
       </Row>
 
       <Row className="mt-3 mb-5 g-3">
-        {books.map((item) => (
+        {books?.map((item) => (
           <Col key={item.id} xs={6} sm={4} md={3} lg={2}>
             <Link
               to={`/genre/philosophy/${item.id}`}

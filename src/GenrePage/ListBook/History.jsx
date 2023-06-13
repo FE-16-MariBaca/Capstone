@@ -20,6 +20,7 @@ const History = () => {
   const { postsHistory, loading } = useSelector((state) => state.postHistory);
   const [books, setBooks] = useState(postsHistory);
   const [searchBooks, setSearchBooks] = useState("");
+  let dataUser = JSON.parse(localStorage.getItem("user-info"));
   let verifyLogin = localStorage.getItem("user.info");
 
   const loginFirst = () => {
@@ -42,11 +43,11 @@ const History = () => {
   };
 
   useEffect(() => {
-    if(!verifyLogin){
-      loginFirst()
-      navigate('/login')
+    if (!dataUser && !verifyLogin) {
+      loginFirst();
+      navigate("/login");
     }
-      dispatch(getPostHistory());
+    dispatch(getPostHistory());
   }, []);
 
   const handleChange = (e) => {
@@ -63,8 +64,8 @@ const History = () => {
   };
 
   useEffect(() => {
-    setBooks(postsHistory)
-  },[loading])
+    setBooks(postsHistory);
+  }, [loading]);
 
   if (loading) {
     return (

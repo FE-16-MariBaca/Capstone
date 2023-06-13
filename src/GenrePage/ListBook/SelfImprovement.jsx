@@ -25,6 +25,8 @@ const SelfImprovement = () => {
   const [books, setBooks] = useState(postsSelf);
   const [searchBooks, setSearchBooks] = useState("");
 
+
+  let dataUser = JSON.parse(localStorage.getItem('user-info'))
   let verifyLogin = localStorage.getItem("user-info");
 
   const loginFirst = () => {
