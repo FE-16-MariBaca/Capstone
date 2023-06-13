@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import axios from "axios";
+// import axios from "axios";
 import { useEffect, useState } from "react";
 import {
   Container,
@@ -16,17 +16,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPostsSelf } from "../../redux/features/postSelfSlice";
 // import { useGetAllSelfimprovementQuery } from "../../redux/features/reduxQuery";
 
-
 const SelfImprovement = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const {data, isLoading: loading} = useGetAllSelfimprovementQuery()
-  const {postsSelf, loading} = useSelector((state) => state.postSelf)
+  const { postsSelf, loading } = useSelector((state) => state.postSelf);
   const [books, setBooks] = useState(postsSelf);
   const [searchBooks, setSearchBooks] = useState("");
 
-
-  let dataUser = JSON.parse(localStorage.getItem('user-info'))
+  let dataUser = JSON.parse(localStorage.getItem("user-info"));
   let verifyLogin = localStorage.getItem("user-info");
 
   const loginFirst = () => {
@@ -49,31 +47,28 @@ const SelfImprovement = () => {
   };
 
   useEffect(() => {
-    if(!verifyLogin){
-      loginFirst()
-      navigate('/login')
+    if (!dataUser && !verifyLogin) {
+      loginFirst();
+      navigate("/login");
     }
-    dispatch(getPostsSelf())
-  }, [])
-
+    dispatch(getPostsSelf());
+  }, []);
 
   const handleChange = (e) => {
     e.preventDefault();
     setSearchBooks(e.target.value);
-    const searchBook = e.target.value
-    
-      if (searchBook.length > 0) {
-        const book = postsSelf.filter((i) => {
-          return i.title.toLowerCase().match(searchBook.toLowerCase());
-        });
-        setBooks(book)
-      }
+    const searchBook = e.target.value;
 
-
+    if (searchBook.length > 0) {
+      const book = postsSelf.filter((i) => {
+        return i.title.toLowerCase().match(searchBook.toLowerCase());
+      });
+      setBooks(book);
+    }
   };
   useEffect(() => {
-    setBooks(postsSelf)
-  },[loading])
+    setBooks(postsSelf);
+  }, [loading]);
 
   if (loading)
     return (

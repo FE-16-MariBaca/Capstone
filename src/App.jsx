@@ -23,10 +23,10 @@ import MysteryDetail from './DetailPage/ListDetail/MysteryDetail';
 import Philosophy from './GenrePage/ListBook/Philosophy';
 import PhilosophyDetail from './DetailPage/ListDetail/PhilosophyDetail';
 import PhilosophyRead from './ReadPage/PhilosophyRead';
-import HistoryDetail from './DetailPage/ListDetail/HistoryDetail'
+import HistoryDetail from './DetailPage/ListDetail/HistoryDetail';
 import HistoryRead from './ReadPage/HistoryRead';
-import  History  from './GenrePage/ListBook/History';
-import PopularThisWeek from './HomePage/components/PopularThisWeek';
+import History from './GenrePage/ListBook/History';
+// import PopularThisWeek from './HomePage/components/PopularThisWeek';
 
 function App() {
   return (

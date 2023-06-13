@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper';
 import Card from 'react-bootstrap/Card';
@@ -8,22 +9,20 @@ import { getPostPhilosophy } from '../../redux/features/postPhilosophy';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
-
 const PopularThisWeek = () => {
-  const dispatch = useDispatch()
-  const {postsPhilosophy, loading} = useSelector((state) => state.postPhilosophy)
-  const [listPopularBooks, setListPopularBooks] = useState(postsPhilosophy)
+  const dispatch = useDispatch();
+  const { postsPhilosophy, loading } = useSelector((state) => state.postPhilosophy);
+  const [listPopularBooks, setListPopularBooks] = useState(postsPhilosophy);
 
   useEffect(() => {
     dispatch(() => {
-      dispatch(getPostPhilosophy())
-    })
-  },[])
+      dispatch(getPostPhilosophy());
+    });
+  }, []);
 
-
-  useEffect(() =>{
-    setListPopularBooks(postsPhilosophy)
-  },[loading])
+  useEffect(() => {
+    setListPopularBooks(postsPhilosophy);
+  }, [loading]);
 
   return (
     <>

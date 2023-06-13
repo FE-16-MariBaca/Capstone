@@ -1,18 +1,11 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  InputGroup,
-  Card,
-  Spinner,
-} from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import Swal from "sweetalert2";
-import { getPostPhilosophy } from "../../redux/features/postPhilosophy";
+/* eslint-disable react-hooks/exhaustive-deps */
+// import axios from "axios";
+import { useEffect, useState } from 'react';
+import { Container, Row, Col, Form, InputGroup, Card, Spinner } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { getPostPhilosophy } from '../../redux/features/postPhilosophy';
 
 const Philosophy = () => {
   const navigate = useNavigate();
@@ -34,14 +27,14 @@ const Philosophy = () => {
       timer: 2000,
       timerProgressBar: false,
       didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
       },
     });
 
     Toast.fire({
-      icon: "warning",
-      title: "Silakan Masuk terlebih dahulu!",
+      icon: 'warning',
+      title: 'Silakan Masuk terlebih dahulu!',
     });
   };
 
@@ -89,12 +82,7 @@ const Philosophy = () => {
         </Col>
         <Col lg={3}>
           <InputGroup className="mb-3 w-100">
-            <Form.Control
-              type="text"
-              value={searchBooks}
-              onChange={handleChange}
-              placeholder="Search Book"
-            />
+            <Form.Control type="text" value={searchBooks} onChange={handleChange} placeholder="Search Book" />
             <InputGroup.Text>
               <i className="bx bx-search-alt-2"></i>
             </InputGroup.Text>
@@ -105,20 +93,11 @@ const Philosophy = () => {
       <Row className="mt-3 mb-5 g-3">
         {books?.map((item) => (
           <Col key={item.id} xs={6} sm={4} md={3} lg={2}>
-            <Link
-              to={`/genre/philosophy/${item.id}`}
-              className="text-decoration-none"
-            >
+            <Link to={`/genre/philosophy/${item.id}`} className="text-decoration-none">
               <Card className="bg-light">
-                <Card.Img
-                  variant="top"
-                  src={item.cover}
-                  className="img-genre-book"
-                />
+                <Card.Img variant="top" src={item.cover} className="img-genre-book" />
                 <Card.Body>
-                  <Card.Text className="text-black title-genre-book">
-                    {item.title}
-                  </Card.Text>
+                  <Card.Text className="text-black title-genre-book">{item.title}</Card.Text>
                 </Card.Body>
               </Card>
             </Link>
