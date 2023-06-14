@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { useState } from 'react';
-import { getPostPhilosophy } from '../../redux/features/postPhilosophy';
+import { getPostPhilosophy } from '../../redux/features/featuresGenre/postPhilosophy';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 

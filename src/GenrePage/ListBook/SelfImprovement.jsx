@@ -13,13 +13,11 @@ import {
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import { getPostsSelf } from "../../redux/features/postSelfSlice";
-// import { useGetAllSelfimprovementQuery } from "../../redux/features/reduxQuery";
+import { getPostsSelf } from "../../redux/features/featuresGenre/postSelfSlice";
 
 const SelfImprovement = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const {data, isLoading: loading} = useGetAllSelfimprovementQuery()
   const { postsSelf, loading } = useSelector((state) => state.postSelf);
   const [books, setBooks] = useState(postsSelf);
   const [searchBooks, setSearchBooks] = useState("");

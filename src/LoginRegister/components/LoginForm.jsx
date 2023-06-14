@@ -76,7 +76,6 @@ const LoginForm = () => {
     }
   };
 
-  console.log("message", message);
 
   return (
     <div className="container-login">

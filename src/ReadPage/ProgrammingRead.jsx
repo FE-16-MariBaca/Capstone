@@ -1,25 +1,43 @@
-import axios from 'axios';
-import { Button, Container, Spinner } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { Button, Container, Spinner } from "react-bootstrap";
+import { useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { getProgrammingDetail } from "../redux/features/featuresDetail/programmingDetailSlice";
 
 const ProgrammingRead = () => {
-  const [book, setBook] = useState({});
-  const params = useParams();
-  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { data, isLoading } = useSelector((state) => state.programmingDetail);
+  const { bookId } = useParams();
+  let verifyLogin = localStorage.getItem("user-info");
+
+  const loginFirst = () => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top",
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: false,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    Toast.fire({
+      icon: "warning",
+      title: "Silakan Masuk terlebih dahulu!",
+    });
+  };
 
   useEffect(() => {
-    const getAPI = async () => {
-      try {
-        const response = await axios.get(`https://64715cc66a9370d5a41a53d8.mockapi.io/programming/${params.bookId}`);
-        setIsLoading(false);
-        setBook(response.data);
-      } catch (error) {
-        setIsLoading(false);
-      }
-    };
-    getAPI();
-  }, [params.bookId]);
+    if (!verifyLogin) {
+      loginFirst();
+      navigate("/login");
+    }
+    dispatch(getProgrammingDetail(bookId));
+  }, [bookId]);
 
   if (isLoading)
     return (
@@ -31,15 +49,19 @@ const ProgrammingRead = () => {
   return (
     <>
       <Container>
-        <Link to={`/genre/programming/${book.id}`}>
+        <Link to={`/genre/programming/${data.id}`}>
           <Button className="btn-back my-5">Kembali</Button>
         </Link>
         <div className="mb-4">
-          <h1 className="fs-3 fw-semibold text-center">{book.title}</h1>
-          <h2 className="text-end fs-5 fst-italic">{book.author}</h2>
+          <h1 className="fs-3 fw-semibold text-center">{data.title}</h1>
+          <h2 className="text-end fs-5 fst-italic">{data.author}</h2>
         </div>
 
-        <iframe src={book.link} className="w-100 vh-100" allow="autoplay"></iframe>
+        <iframe
+          src={data.link}
+          className="w-100 vh-100"
+          allow="autoplay"
+        ></iframe>
       </Container>
     </>
   );

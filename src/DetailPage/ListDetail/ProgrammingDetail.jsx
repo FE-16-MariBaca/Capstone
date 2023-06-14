@@ -1,17 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Container, Spinner, Row, Col, Button } from 'react-bootstrap';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Comment from '../../public-components/Comment/Comment';
+import {getProgrammingDetail} from '../../redux/features/featuresDetail/programmingDetailSlice'
 import '../DetailBook.css';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ProgrammingDetail = () => {
   const navigate = useNavigate();
-  const [book, setBook] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const params = useParams();
+  const dispatch = useDispatch()
+  // const [book, setBook] = useState();
+  // const [isLoading, setIsLoading] = useState(false);
+  const {data,isLoading} = useSelector((state) => state.programmingDetail)
+  const {bookId} = useParams();
 
   let dataUser = JSON.parse(localStorage.getItem('user-info'));
   let verifyLogin = localStorage.getItem('user-info');
@@ -56,22 +60,12 @@ const ProgrammingDetail = () => {
   };
 
   useEffect(() => {
-    const getAPI = async () => {
-      // /programming -> endpoint
-      try {
-        const response = await axios.get(`https://64715cc66a9370d5a41a53d8.mockapi.io/programming/${params.bookId}`);
-        setIsLoading(false);
-        setBook(response.data);
-      } catch (error) {
-        setIsLoading(false);
-      }
-    };
     if (!verifyLogin) {
       loginFirst();
       navigate('/login');
     }
-    getAPI();
-  }, [params.bookId]);
+    dispatch(getProgrammingDetail(bookId))
+  }, [bookId]);
 
   if (isLoading)
     return (
@@ -95,32 +89,32 @@ const ProgrammingDetail = () => {
     <Container className="mt-5">
       <Row>
         <Col lg={5} className="d-flex justify-content-center">
-          <img src={book.cover} alt="Cover" className="w-50 book-cover mx-auto rounded img-fluid mb-3" />
+          <img src={data.cover} alt="Cover" className="w-50 book-cover mx-auto rounded img-fluid mb-3" />
         </Col>
         <Col lg={7}>
-          <span className="fs-4 fw-semibold">{book.title}</span>
+          <span className="fs-4 fw-semibold">{data.title}</span>
           <table className="table table-borderless pt-3 mx-auto">
             <tbody>
               <tr>
                 <td>Bahasa</td>
-                <td>: {book.language}</td>
+                <td>: {data.language}</td>
               </tr>
               <tr>
                 <td>Pengarang</td>
-                <td>: {book.author}</td>
+                <td>: {data.author}</td>
               </tr>
               <tr>
                 <td>Tahun Rilis</td>
-                <td>: {book.released}</td>
+                <td>: {data.released}</td>
               </tr>
               <tr>
                 <td>Genre</td>
-                <td>: {book.genre}</td>
+                <td>: {data.genre}</td>
               </tr>
             </tbody>
           </table>
           <span className="fs-5 fw-semibold">Sinopsis</span>
-          <p className="book-synopsis p-1">{book.synopsis}</p>
+          <p className="book-synopsis p-1">{data.synopsis}</p>
 
           <div className="d-flex justify-content-end mb-5 justify-content-between">
             <Link to="/genre/programming">
@@ -129,7 +123,7 @@ const ProgrammingDetail = () => {
             <Button onClick={handleBookmark} className="btn-bookmark me-2">
               <i className="bx bx-heart"></i> Bookmark
             </Button>
-            <Link to={`/genre/programming/read/${book.id}`}>
+            <Link to={`/genre/programming/read/${data.id}`}>
               <Button className="btn-read-book">Mulai Baca</Button>
             </Link>
           </div>
