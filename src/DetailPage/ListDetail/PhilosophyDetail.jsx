@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Container, Spinner, Row, Col, Button } from 'react-bootstrap';
@@ -6,13 +7,11 @@ import Swal from 'sweetalert2';
 import Comment from '../../public-components/Comment/Comment';
 import '../DetailBook.css';
 
-
-
 const PhilosophyDetail = () => {
-  const navigate = useNavigate()
-  const [book, setBook] = useState()
-  const [isLoading, setIsloading] = useState({})
-  const params = useParams()
+  const navigate = useNavigate();
+  const [book, setBook] = useState();
+  const [isLoading, setIsloading] = useState({});
+  const params = useParams();
 
   let dataUser = JSON.parse(localStorage.getItem('user-info'));
   let verifyLogin = localStorage.getItem('user-info');
@@ -83,7 +82,7 @@ const PhilosophyDetail = () => {
     e.preventDefault();
     const dataBook = { email: dataUser && dataUser.email, cover: book.cover, title: book.title, link: window.location.href };
     try {
-      axios.post('https://64670f90ba7110b663ae7915.mockapi.io/bookmarks', dataBook);
+      axios.post('https://6489b31a5fa58521cab01312.mockapi.io/bookmarks', dataBook);
       alert();
     } catch (error) {
       console.log(error);
@@ -137,6 +136,6 @@ const PhilosophyDetail = () => {
       <Comment />
     </Container>
   );
-}
+};
 
-export default PhilosophyDetail
+export default PhilosophyDetail;

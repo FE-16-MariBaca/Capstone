@@ -27,7 +27,7 @@ const PopularGenre = () => {
           <Col key={index} xs={6} lg={12}>
             <Link to={item.url}>
               <Card className="bg-dark text-white">
-                <Card.Img src={item.img} className="img-popular-genre" height={70} alt="Card image" />
+                <Card.Img src={item.img} className="img-popular-genre" height={80} alt="Card image" />
                 <Card.ImgOverlay className="d-flex justify-content-center align-items-center">
                   <Card.Title>{item.title}</Card.Title>
                 </Card.ImgOverlay>

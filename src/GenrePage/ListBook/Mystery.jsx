@@ -11,10 +11,9 @@ const Mystery = () => {
   const dispatch = useDispatch();
   const { postsMystery, loading } = useSelector((state) => state.postMystery);
   const [books, setBooks] = useState(postsMystery);
-  const [searchBooks, setSearchBooks] = useState("");
-  const [isLoading, setIsloading] = useState(false);
-  let dataUser = JSON.parse(localStorage.getItem("user-info"));
-  let verifyLogin = localStorage.getItem("user.info");
+  const [searchBooks, setSearchBooks] = useState('');
+  let dataUser = JSON.parse(localStorage.getItem('user-info'));
+  let verifyLogin = localStorage.getItem('user.info');
 
   const loginFirst = () => {
     const Toast = Swal.mixin({
@@ -38,7 +37,7 @@ const Mystery = () => {
   useEffect(() => {
     if (!dataUser && !verifyLogin) {
       loginFirst();
-      navigate("/login");
+      navigate('/login');
     }
     dispatch(getPostMastery());
   }, []);

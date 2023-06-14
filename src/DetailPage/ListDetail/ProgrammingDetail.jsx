@@ -84,7 +84,7 @@ const ProgrammingDetail = () => {
     e.preventDefault();
     const dataBook = { email: dataUser && dataUser.email, cover: book.cover, title: book.title, link: window.location.href };
     try {
-      axios.post('https://64670f90ba7110b663ae7915.mockapi.io/bookmarks', dataBook);
+      axios.post('https://6489b31a5fa58521cab01312.mockapi.io/bookmarks', dataBook);
       alert();
     } catch (error) {
       console.log(error);

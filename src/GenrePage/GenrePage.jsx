@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState } from 'react';
-import { Col, Card, Container, Form, InputGroup, Row } from 'react-bootstrap';
+import { Col, Card, Container, Form, InputGroup, Row, Spinner } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import Swal from 'sweetalert2';
@@ -59,6 +59,13 @@ const GenrePage = () => {
   useEffect(() => {
     setListGenre(genre);
   }, [loading]);
+
+  if (loading)
+    return (
+      <Container className="vh-100 d-flex justify-content-center align-items-center">
+        <Spinner animation="border" variant="danger" />
+      </Container>
+    );
 
   return (
     <>

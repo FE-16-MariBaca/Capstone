@@ -26,7 +26,10 @@ import PhilosophyRead from './ReadPage/PhilosophyRead';
 import HistoryDetail from './DetailPage/ListDetail/HistoryDetail';
 import HistoryRead from './ReadPage/HistoryRead';
 import History from './GenrePage/ListBook/History';
-// import PopularThisWeek from './HomePage/components/PopularThisWeek';
+import PopularThisWeek from './HomePage/components/PopularThisWeek';
+import Biography from './GenrePage/ListBook/Biography';
+import BiographyRead from './ReadPage/BiographyRead';
+import BiographyDetail from './DetailPage/ListDetail/BiographyDetail';
 
 function App() {
   return (
@@ -49,18 +52,21 @@ function App() {
         <Route path="/genre/mystery" element={<Mystery />} />
         <Route path="/genre/philosophy" element={<Philosophy />} />
         <Route path="/genre/history" element={<History />} />
+        <Route path="/genre/biography" element={<Biography />} />
         {/* Detail page */}
         <Route path="/genre/programming/:bookId" element={<ProgrammingDetail />} />
         <Route path="/genre/self-improvement/:bookId" element={<SelfImprovementDetail />} />
         <Route path="/genre/philosophy/:bookId" element={<PhilosophyDetail />} />
         <Route path="/genre/mystery/:bookId" element={<MysteryDetail />} />
         <Route path="/genre/history/:bookId" element={<HistoryDetail />} />
+        <Route path="/genre/biography/:bookId" element={<BiographyDetail />} />
         {/* read book */}
         <Route path="/genre/self-improvement/read/:bookId" element={<SelfImprovementRead />} />
         <Route path="/genre/programming/read/:bookId" element={<ProgrammingRead />} />
         <Route path="/genre/mystery/read/:bookId" element={<MysteryRead />} />
         <Route path="/genre/philosophy/read/:bookId" element={<PhilosophyRead />} />
         <Route path="/genre/history/read/:bookId" element={<HistoryRead />} />
+        <Route path="/genre/biography/read/:bookId" element={<BiographyRead />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -16,17 +16,17 @@ const BookmarksPage = () => {
   let verifyLogin = localStorage.getItem('user-info');
   let dataUser = JSON.parse(localStorage.getItem('user-info'));
 
-  useEffect(() => {
-    const getAPI = async () => {
-      try {
-        const response = await axios.get('https://647ad0d0d2e5b6101db08cbd.mockapi.io/bookmarks');
-        setDataBookmark(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(true);
-      }
-    };
+  const getAPI = async () => {
+    try {
+      const response = await axios.get('https://6489b31a5fa58521cab01312.mockapi.io/bookmarks');
+      setDataBookmark(response.data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(true);
+    }
+  };
 
+  useEffect(() => {
     getAPI();
   }, []);
 
@@ -38,24 +38,22 @@ const BookmarksPage = () => {
   };
 
   const deletedAlert = () => {
-    navigate('/home');
-    const swalWithBootstrapButtons = Swal.mixin({
-      buttonsStyling: true,
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: false,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      },
     });
 
-    swalWithBootstrapButtons
-      .fire({
-        title: 'Success!',
-        text: 'Bookmark berhasil dihapus.',
-        icon: 'success',
-        confirmButtonColor: '#db3635',
-        confirmButtonText: 'OK',
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          navigate('/home');
-        }
-      });
+    Toast.fire({
+      icon: 'success',
+      title: 'Berhasil menghapus bookmark',
+    });
   };
 
   const loginFirst = () => {
@@ -77,9 +75,10 @@ const BookmarksPage = () => {
     });
   };
 
-  const handleDelete = (id) => {
-    axios.delete(`https://647ad0d0d2e5b6101db08cbd.mockapi.io/bookmarks/${id}`);
+  const handleDelete = async (id) => {
+    await axios.delete(`https://6489b31a5fa58521cab01312.mockapi.io/bookmarks/${id}`);
     deletedAlert();
+    getAPI();
   };
 
   if (searchBooks.length > 0) {
@@ -118,10 +117,10 @@ const BookmarksPage = () => {
         </Col>
       </Row>
       <Row className="mt-3 mb-5 g-3">
-        {dataList.lenth == 0 ? (
+        {dataList.length == 0 ? (
           <Container className="vh-100 d-flex flex-column justify-content-center align-items-center">
             <img src={empty} alt="Bookmark still empty" className="py-5 img-fluid img-bookmark-empty" />
-            <span className="fw-semibold title-bookmark-empty">Bookmark masih kosong.</span>
+            <span className="fw-semibold title-bookmark-empty">Tidak ada bookmark</span>
           </Container>
         ) : (
           <>
@@ -135,7 +134,7 @@ const BookmarksPage = () => {
                     </Card.Body>
                   </Link>
                   <ListGroup.Item>
-                    <Button onClick={() => handleDelete(item.id)} className="float-end mb-2 me-2 btn-delete-bookmark">
+                    <Button onClick={() => handleDelete(item.id)} className="mx-auto py-0 d-block w-75 mb-2 btn-delete-bookmark">
                       <i className="bx bx-trash"></i>
                     </Button>
                   </ListGroup.Item>
