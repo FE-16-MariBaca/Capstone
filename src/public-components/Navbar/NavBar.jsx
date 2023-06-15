@@ -9,8 +9,8 @@ const NavBar = () => {
     localStorage.clear();
     navigate('/login');
   };
-  const url = 'http://localhost:5173/';
-  const windowsLocateLoginRegister = window.location.href == url + 'login' || window.location.href == url + 'register';
+  const url = import.meta.env.VITE_URL;
+  const windowsLocateLoginRegister = window.location.href == url + '/login' || window.location.href == url + '/register';
   const alreadyLogin = localStorage.getItem('user-info');
 
   const liveChat = (e) => {

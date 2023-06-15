@@ -11,7 +11,7 @@ const BiographyRead = () => {
   useEffect(() => {
     const getAPI = async () => {
       try {
-        const response = await axios.get(`https://647f16c8c246f166da900eaa.mockapi.io/endpoint/Biography/${params.bookId}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_BIOGRAPHY}/${params.bookId}`);
         setIsLoading(false);
         setBook(response.data);
       } catch (error) {

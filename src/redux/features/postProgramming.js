@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const getPostProgramming = createAsyncThunk('postProgramming/getPostProgramming', async () => {
   try {
-    const response = await axios.get('https://64715cc66a9370d5a41a53d8.mockapi.io/programming');
+    const response = await axios.get(import.meta.env.VITE_API_PROGRAMMING);
     return response.data;
   } catch (error) {
     console.log(error);

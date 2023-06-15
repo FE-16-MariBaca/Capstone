@@ -11,7 +11,7 @@ const MysteryRead = () => {
   useEffect(() => {
     const getAPI = async () => {
       try {
-        const response = await axios.get(`https://6475ca44e607ba4797dc9d4d.mockapi.io/MysteryBookList/${params.bookId}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_MYSTERY}/${params.bookId}`);
         setIsLoading(false);
         setBook(response.data);
       } catch (error) {

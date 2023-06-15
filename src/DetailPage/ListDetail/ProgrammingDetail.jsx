@@ -59,7 +59,7 @@ const ProgrammingDetail = () => {
     const getAPI = async () => {
       // /programming -> endpoint
       try {
-        const response = await axios.get(`https://64715cc66a9370d5a41a53d8.mockapi.io/programming/${params.bookId}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_PROGRAMMING}/${params.bookId}`);
         setIsLoading(false);
         setBook(response.data);
       } catch (error) {
@@ -84,7 +84,7 @@ const ProgrammingDetail = () => {
     e.preventDefault();
     const dataBook = { email: dataUser && dataUser.email, cover: book.cover, title: book.title, link: window.location.href };
     try {
-      axios.post('https://6489b31a5fa58521cab01312.mockapi.io/bookmarks', dataBook);
+      axios.post(import.meta.env.VITE_API_BOOKMARKS, dataBook);
       alert();
     } catch (error) {
       console.log(error);

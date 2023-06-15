@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const getPostMastery = createAsyncThunk('postMystery/getPostMystery', async () => {
   try {
-    const response = await axios.get('https://6475ca44e607ba4797dc9d4d.mockapi.io/MysteryBookList');
+    const response = await axios.get(import.meta.env.VITE_API_MYSTERY);
     return response.data;
   } catch (error) {
     console.log(error);

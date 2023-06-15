@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const getPostBiography = createAsyncThunk('postBiography/getPostBiography', async () => {
   try {
-    const response = await axios.get(`https://647f16c8c246f166da900eaa.mockapi.io/endpoint/Biography`);
+    const response = await axios.get(import.meta.env.VITE_API_BIOGRAPHY);
     return response.data;
   } catch (error) {
     console.log(error);

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const getPostsSelf = createAsyncThunk('postSelf/getPostsSelf', async () => {
   try {
-    const response = await axios.get('https://64715cc66a9370d5a41a53d8.mockapi.io/selfimprovement');
+    const response = await axios.get(import.meta.env.VITE_API_SELF_IMPROVEMENT);
     return response.data;
   } catch (error) {
     console.error(error);

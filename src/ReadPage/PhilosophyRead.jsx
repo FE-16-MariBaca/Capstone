@@ -11,7 +11,7 @@ const PhilosophyRead = () => {
   useEffect(() => {
     const getAPI = async () => {
       try {
-        const response = await axios.get(`https://647ad0d0d2e5b6101db08cbd.mockapi.io/philosophy/${params.bookId}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_PHILOSOPHY}/${params.bookId}`);
         setIsLoading(false);
         setBook(response.data);
       } catch (error) {

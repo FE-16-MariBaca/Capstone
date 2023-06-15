@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const getPostPhilosophy = createAsyncThunk('postPhilosophy/getPostPhilosophy', async () => {
   try {
-    const response = await axios.get('https://647ad0d0d2e5b6101db08cbd.mockapi.io/philosophy');
+    const response = await axios.get(import.meta.env.VITE_API_PHILOSOPHY);
     return response.data;
   } catch (error) {
     console.log(error);

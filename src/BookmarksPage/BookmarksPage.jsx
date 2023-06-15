@@ -18,7 +18,7 @@ const BookmarksPage = () => {
 
   const getAPI = async () => {
     try {
-      const response = await axios.get('https://6489b31a5fa58521cab01312.mockapi.io/bookmarks');
+      const response = await axios.get(import.meta.env.VITE_API_BOOKMARKS);
       setDataBookmark(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -76,7 +76,7 @@ const BookmarksPage = () => {
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`https://6489b31a5fa58521cab01312.mockapi.io/bookmarks/${id}`);
+    await axios.delete(`${import.meta.env.VITE_API_BOOKMARKS}/${id}`);
     deletedAlert();
     getAPI();
   };
@@ -118,8 +118,8 @@ const BookmarksPage = () => {
       </Row>
       <Row className="mt-3 mb-5 g-3">
         {dataList.length == 0 ? (
-          <Container className="vh-100 d-flex flex-column justify-content-center align-items-center">
-            <img src={empty} alt="Bookmark still empty" className="py-5 img-fluid img-bookmark-empty" />
+          <Container className="d-flex flex-column justify-content-center align-items-center">
+            <img src={empty} alt="Bookmark still empty" className="my-5 img-fluid img-bookmark-empty" />
             <span className="fw-semibold title-bookmark-empty">Tidak ada bookmark</span>
           </Container>
         ) : (
