@@ -1,25 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-// import axios from "axios";
 import { useEffect, useState } from 'react';
 import { Container, Row, Col, Form, InputGroup, Card, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { getPostProgramming } from '../../redux/features/postProgramming';
+import { getPostHistory } from '../../redux/features/postHistorySlice';
 
-const Programming = () => {
+const History = () => {
   const navigate = useNavigate();
-  const { postsProgramming, loading } = useSelector((state) => state.postProgramming);
   const dispatch = useDispatch();
-  const [books, setBooks] = useState(postsProgramming);
-  const [searchBooks, setSearchBooks] = useState('');
-
-  let verifyLogin = localStorage.getItem('user-info');
+  const { postsHistory, loading } = useSelector((state) => state.postHistory);
+  const [books, setBooks] = useState(postsHistory);
+  const [searchBooks, setSearchBooks] = useState("");
+  let dataUser = JSON.parse(localStorage.getItem("user-info"));
+  let verifyLogin = localStorage.getItem("user.info");
 
   const loginFirst = () => {
     const Toast = Swal.mixin({
       toast: true,
-      position: 'top',
+      position: top,
       showConfirmButton: false,
       timer: 2000,
       timerProgressBar: false,
@@ -36,11 +35,11 @@ const Programming = () => {
   };
 
   useEffect(() => {
-    if (!verifyLogin) {
+    if (!dataUser && !verifyLogin) {
       loginFirst();
-      navigate('/login');
+      navigate("/login");
     }
-    dispatch(getPostProgramming());
+    dispatch(getPostHistory());
   }, []);
 
   const handleChange = (e) => {
@@ -49,30 +48,30 @@ const Programming = () => {
     const searchBook = e.target.value;
 
     if (searchBook.length > 0) {
-      const book = postsProgramming.filter((i) => {
-        return i.title.toLowerCase().match(searchBook.toLowerCase());
+      const book = postsHistory.filter((i) => {
+        return i.title.toLowerCase().match(searchBooks.toLocaleLowerCase());
       });
-
       setBooks(book);
     }
   };
 
   useEffect(() => {
-    setBooks(postsProgramming);
+    setBooks(postsHistory);
   }, [loading]);
 
-  if (loading)
+  if (loading) {
     return (
       <Container className="vh-100 d-flex justify-content-center align-items-center">
         <Spinner animation="border" variant="danger" />
       </Container>
     );
+  }
 
   return (
     <Container>
       <Row className="mt-5">
         <Col lg={9}>
-          <p className="fs-4 fw-semibold">Programming</p>
+          <p className="fs-4 fw-semibolf">History Genre</p>
         </Col>
         <Col lg={3}>
           <InputGroup className="mb-3 w-100">
@@ -83,10 +82,11 @@ const Programming = () => {
           </InputGroup>
         </Col>
       </Row>
+
       <Row className="mt-3 mb-5 g-3">
-        {books?.map((item) => (
+        {books.map((item) => (
           <Col key={item.id} xs={6} sm={4} md={3} lg={2}>
-            <Link to={`/genre/programming/${item.id}`} className="text-decoration-none">
+            <Link to={`/genre/history/${item.id}`} className="text-decoration-none">
               <Card className="bg-light">
                 <Card.Img variant="top" src={item.cover} className="img-genre-book" />
                 <Card.Body>
@@ -101,4 +101,4 @@ const Programming = () => {
   );
 };
 
-export default Programming;
+export default History;

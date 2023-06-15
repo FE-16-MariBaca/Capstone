@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Alert, Form, InputGroup } from 'react-bootstrap';
+import { Alert, Form, InputGroup, Modal, Button } from 'react-bootstrap';
 import { useNavigate, NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
@@ -9,14 +9,21 @@ const LoginForm = () => {
   const [users, setUsers] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [forgetPassword, setForgetPassword] = useState('');
+  const [resultForgetPassword, setResultForgetPassword] = useState('');
+  const [message, setMessage] = useState('');
   const [userNotFound, setUserNotFound] = useState(false);
   const [visibilityPassword, setVisibilityPassword] = useState('password');
   const [icon, setIcon] = useState('bx bx-low-vision');
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true);
 
   useEffect(() => {
     const getAPI = async () => {
       try {
-        const response = await axios.get('https://64670f90ba7110b663ae7915.mockapi.io/users');
+        const response = await axios.get(import.meta.env.VITE_API_USERS);
         setUsers(response.data);
         // console.log(response.data);
       } catch (error) {
@@ -58,12 +65,26 @@ const LoginForm = () => {
   const login = (e) => {
     e.preventDefault();
     const user = users.find((item) => item.email === email && item.password === password);
-    if (user) {
-      localStorage.setItem('user-info', JSON.stringify(user));
-      successLogin();
-      navigate('/home');
+    if (email === '' && password === '') {
+      setMessage('Harap masukkan email dan password!');
     } else {
-      setUserNotFound(true);
+      if (user) {
+        localStorage.setItem('user-info', JSON.stringify(user));
+        successLogin();
+        navigate('/home');
+      } else {
+        setUserNotFound(true);
+      }
+    }
+  };
+
+  const handleForgetPassword = (e) => {
+    e.preventDefault();
+    const dataUser = users.filter((item) => item.email === forgetPassword);
+    if (dataUser.length > 0) {
+      setResultForgetPassword(`Kata Sandi kamu adalah ${dataUser[0].password}`);
+    } else {
+      setResultForgetPassword('Pengguna tidak ditemukan');
     }
   };
 
@@ -75,7 +96,15 @@ const LoginForm = () => {
           Mari<span>Baca</span>
         </NavLink>
       </h1>
-      <p className="fw-light fs-5">Silakan isi data kamu yah!</p>
+      {message ? (
+        <div className="text-center py-2">
+          <Alert variant="danger">
+            <span className="fw-semibold">Warning!</span> {message}
+          </Alert>
+        </div>
+      ) : (
+        <></>
+      )}
 
       <form onSubmit={login} name="form" className="mt-5">
         {userNotFound == false ? null : (
@@ -103,7 +132,9 @@ const LoginForm = () => {
           </InputGroup>
         </div>
         <div className="mb-3 form-forget text-end">
-          <p className="forget-password">Lupa kata sandi?</p>
+          <Button className="forget-password" onClick={handleShowModal}>
+            Lupa kata sandi?
+          </Button>
         </div>
         <button type="submit" className="btn btn-login-form w-100 mt-4 fw-bold">
           Masuk
@@ -115,6 +146,25 @@ const LoginForm = () => {
           </NavLink>
         </p>
       </form>
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Lupa Kata Sandi</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form className="my-4" onSubmit={handleForgetPassword}>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Control type="email" placeholder="Masukkan email kamu" autoFocus value={forgetPassword} onChange={(e) => setForgetPassword(e.target.value)} />
+            </Form.Group>
+            <Button className="d-block mx-auto btn-search-user" type="submit">
+              Cari Pengguna
+            </Button>
+            <div className="text-center mt-4">
+              <p className="fs-5 fw-semibold">Hasil Pencarian</p>
+              <span> {resultForgetPassword}</span>
+            </div>
+          </Form>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

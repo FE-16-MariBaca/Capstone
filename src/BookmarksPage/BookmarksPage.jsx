@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import empty from '../assets/no-bookmark.png';
 import './BookmarksPage.css';
+// import { version } from 'react-dom';
 
 const BookmarksPage = () => {
   const [dataBookmark, setDataBookmark] = useState([]);
@@ -12,18 +13,20 @@ const BookmarksPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
+  let verifyLogin = localStorage.getItem('user-info');
   let dataUser = JSON.parse(localStorage.getItem('user-info'));
 
+  const getAPI = async () => {
+    try {
+      const response = await axios.get(import.meta.env.VITE_API_BOOKMARKS);
+      setDataBookmark(response.data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(true);
+    }
+  };
+
   useEffect(() => {
-    const getAPI = async () => {
-      try {
-        const response = await axios.get('https://64670f90ba7110b663ae7915.mockapi.io/bookmarks');
-        setDataBookmark(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(true);
-      }
-    };
     getAPI();
   }, []);
 
@@ -35,28 +38,47 @@ const BookmarksPage = () => {
   };
 
   const deletedAlert = () => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      buttonsStyling: true,
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: false,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      },
     });
 
-    swalWithBootstrapButtons
-      .fire({
-        title: 'Success!',
-        text: 'Bookmark berhasil dihapus.',
-        icon: 'success',
-        confirmButtonColor: '#db3635',
-        confirmButtonText: 'OK',
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          navigate('/home');
-        }
-      });
+    Toast.fire({
+      icon: 'success',
+      title: 'Berhasil menghapus bookmark',
+    });
   };
 
-  const handleDelete = (id) => {
-    axios.delete(`https://64670f90ba7110b663ae7915.mockapi.io/bookmarks/${id}`);
+  const loginFirst = () => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: false,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      },
+    });
+
+    Toast.fire({
+      icon: 'warning',
+      title: 'Silakan Masuk terlebih dahulu!',
+    });
+  };
+
+  const handleDelete = async (id) => {
+    await axios.delete(`${import.meta.env.VITE_API_BOOKMARKS}/${id}`);
     deletedAlert();
+    getAPI();
   };
 
   if (searchBooks.length > 0) {
@@ -64,6 +86,13 @@ const BookmarksPage = () => {
       return i.title.toLowerCase().match(searchBooks.toLowerCase());
     });
   }
+
+  useEffect(() => {
+    if (!verifyLogin) {
+      loginFirst();
+      navigate('/login');
+    }
+  });
 
   if (isLoading)
     return (
@@ -88,10 +117,10 @@ const BookmarksPage = () => {
         </Col>
       </Row>
       <Row className="mt-3 mb-5 g-3">
-        {dataList.lenth == 0 ? (
-          <Container className="vh-100 d-flex flex-column justify-content-center align-items-center">
-            <img src={empty} alt="Bookmark still empty" className="py-5 img-fluid img-bookmark-empty" />
-            <span className="fw-semibold title-bookmark-empty">Bookmark masih kosong.</span>
+        {dataList.length == 0 ? (
+          <Container className="d-flex flex-column justify-content-center align-items-center">
+            <img src={empty} alt="Bookmark still empty" className="my-5 img-fluid img-bookmark-empty" />
+            <span className="fw-semibold title-bookmark-empty">Tidak ada bookmark</span>
           </Container>
         ) : (
           <>
@@ -105,7 +134,7 @@ const BookmarksPage = () => {
                     </Card.Body>
                   </Link>
                   <ListGroup.Item>
-                    <Button onClick={() => handleDelete(item.id)} className="float-end mb-2 me-2 btn-delete-bookmark">
+                    <Button onClick={() => handleDelete(item.id)} className="mx-auto py-0 d-block w-75 mb-2 btn-delete-bookmark">
                       <i className="bx bx-trash"></i>
                     </Button>
                   </ListGroup.Item>

@@ -14,7 +14,14 @@
   color: #db3635;
 }
 .forget-password {
-  color: #db3635;
+  color: #db3635 !important;
+  background: transparent !important;
+  border: none !important;
+}
+.btn-search-user {
+  background-color: #db3635 !important;
+  color: white !important;
+  border: 2px solid #db3635 !important;
 }
 .btn-login-form {
   background-color: #db3635 !important;

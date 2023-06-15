@@ -7,15 +7,14 @@ import Swal from 'sweetalert2';
 import Comment from '../../public-components/Comment/Comment';
 import '../DetailBook.css';
 
-const MysteryDetail = () => {
+const PhilosophyDetail = () => {
   const navigate = useNavigate();
-  const [book, setBook] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [book, setBook] = useState();
+  const [isLoading, setIsloading] = useState({});
   const params = useParams();
 
   let dataUser = JSON.parse(localStorage.getItem('user-info'));
   let verifyLogin = localStorage.getItem('user-info');
-
   const loginFirst = () => {
     const Toast = Swal.mixin({
       toast: true,
@@ -58,11 +57,11 @@ const MysteryDetail = () => {
   useEffect(() => {
     const getAPI = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_MYSTERY}/${params.bookId}`);
-        setIsLoading(false);
+        const response = await axios.get(`${import.meta.env.VITE_API_PHILOSOPHY}/${params.bookId}`);
+        setIsloading(false);
         setBook(response.data);
       } catch (error) {
-        setIsLoading(false);
+        setIsloading(false);
       }
     };
     if (!verifyLogin) {
@@ -122,13 +121,13 @@ const MysteryDetail = () => {
           <p className="book-synopsis p-1">{book.synopsis}</p>
 
           <div className="d-flex justify-content-end mb-5 justify-content-between">
-            <Link to="/genre/mystery">
+            <Link to="/genre/philosophy">
               <Button className="btn-back">Kembali</Button>
             </Link>
             <Button onClick={handleBookmark} className="btn-bookmark me-2">
               <i className="bx bx-heart"></i> Bookmark
             </Button>
-            <Link to={`/genre/mystery/read/${book.id}`}>
+            <Link to={`/genre/philosophy/read/${book.id}`}>
               <Button className="btn-read-book">Mulai Baca</Button>
             </Link>
           </div>
@@ -139,4 +138,4 @@ const MysteryDetail = () => {
   );
 };
 
-export default MysteryDetail;
+export default PhilosophyDetail;

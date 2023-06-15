@@ -30,7 +30,7 @@ const RegisterForm = () => {
   const addUser = (event) => {
     event.preventDefault();
     try {
-      axios.post('https://64670f90ba7110b663ae7915.mockapi.io/users', newUser);
+      axios.post(import.meta.env.VITE_API_USERS, newUser);
       alert();
     } catch (error) {
       console.log(error);

@@ -11,7 +11,7 @@ const ProgrammingRead = () => {
   useEffect(() => {
     const getAPI = async () => {
       try {
-        const response = await axios.get(`https://64715cc66a9370d5a41a53d8.mockapi.io/programming/${params.bookId}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_PROGRAMMING}/${params.bookId}`);
         setIsLoading(false);
         setBook(response.data);
       } catch (error) {

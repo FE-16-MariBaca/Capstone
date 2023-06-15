@@ -3,7 +3,7 @@ import { Button, Container, Spinner } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
-const SelfImprovementRead = () => {
+const BiographyRead = () => {
   const [book, setBook] = useState({});
   const params = useParams();
   const [isLoading, setIsLoading] = useState(true);
@@ -11,7 +11,7 @@ const SelfImprovementRead = () => {
   useEffect(() => {
     const getAPI = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_SELF_IMPROVEMENT}/${params.bookId}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_BIOGRAPHY}/${params.bookId}`);
         setIsLoading(false);
         setBook(response.data);
       } catch (error) {
@@ -23,7 +23,7 @@ const SelfImprovementRead = () => {
 
   if (isLoading)
     return (
-      <Container className="vh-100 d-flex justify-content-center align-items-center">
+      <Container className="vh-100 d-flex justify-content align-items-center">
         <Spinner animation="border" variant="danger" />
       </Container>
     );
@@ -31,7 +31,7 @@ const SelfImprovementRead = () => {
   return (
     <>
       <Container>
-        <Link to={`/genre/self-improvement/${book.id}`}>
+        <Link to={`/genre/biography/${book.id}`}>
           <Button className="btn-back my-5">Kembali</Button>
         </Link>
         <div className="mb-4">
@@ -45,4 +45,4 @@ const SelfImprovementRead = () => {
   );
 };
 
-export default SelfImprovementRead;
+export default BiographyRead;
