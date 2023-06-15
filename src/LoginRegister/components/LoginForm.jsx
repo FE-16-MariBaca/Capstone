@@ -82,7 +82,7 @@ const LoginForm = () => {
     e.preventDefault();
     const dataUser = users.filter((item) => item.email === forgetPassword);
     if (dataUser.length > 0) {
-      setResultForgetPassword(`Password kamu adalah ${dataUser[0].password}`);
+      setResultForgetPassword(`Kata Sandi kamu adalah ${dataUser[0].password}`);
     } else {
       setResultForgetPassword('Pengguna tidak ditemukan');
     }
@@ -148,7 +148,7 @@ const LoginForm = () => {
       </form>
       <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Lupa Password</Modal.Title>
+          <Modal.Title>Lupa Kata Sandi</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form className="my-4" onSubmit={handleForgetPassword}>
