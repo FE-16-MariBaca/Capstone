@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import Comment from '../../public-components/Comment/Comment';
 import '../DetailBook.css';
 
-const MysteryDetail = () => {
+const BiographyDetail = () => {
   const navigate = useNavigate();
   const [book, setBook] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -58,7 +58,7 @@ const MysteryDetail = () => {
   useEffect(() => {
     const getAPI = async () => {
       try {
-        const response = await axios.get(`https://6475ca44e607ba4797dc9d4d.mockapi.io/MysteryBookList/${params.bookId}`);
+        const response = await axios.get(`https://647f16c8c246f166da900eaa.mockapi.io/endpoint/Biography/${params.bookId}`);
         setIsLoading(false);
         setBook(response.data);
       } catch (error) {
@@ -81,7 +81,12 @@ const MysteryDetail = () => {
 
   const handleBookmark = (e) => {
     e.preventDefault();
-    const dataBook = { email: dataUser && dataUser.email, cover: book.cover, title: book.title, link: window.location.href };
+    const dataBook = {
+      email: dataUser && dataUser.email,
+      cover: book.cover,
+      title: book.title,
+      link: window.location.href,
+    };
     try {
       axios.post('https://6489b31a5fa58521cab01312.mockapi.io/bookmarks', dataBook);
       alert();
@@ -122,13 +127,13 @@ const MysteryDetail = () => {
           <p className="book-synopsis p-1">{book.synopsis}</p>
 
           <div className="d-flex justify-content-end mb-5 justify-content-between">
-            <Link to="/genre/mystery">
+            <Link to="/genre/biography">
               <Button className="btn-back">Kembali</Button>
             </Link>
             <Button onClick={handleBookmark} className="btn-bookmark me-2">
               <i className="bx bx-heart"></i> Bookmark
             </Button>
-            <Link to={`/genre/mystery/read/${book.id}`}>
+            <Link to={`/genre/biography/read/${book.id}`}>
               <Button className="btn-read-book">Mulai Baca</Button>
             </Link>
           </div>
@@ -139,4 +144,4 @@ const MysteryDetail = () => {
   );
 };
 
-export default MysteryDetail;
+export default BiographyDetail;

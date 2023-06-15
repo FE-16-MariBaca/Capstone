@@ -3,7 +3,7 @@ import { Button, Container, Spinner } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
-const MysteryRead = () => {
+const BiographyRead = () => {
   const [book, setBook] = useState({});
   const params = useParams();
   const [isLoading, setIsLoading] = useState(true);
@@ -11,7 +11,7 @@ const MysteryRead = () => {
   useEffect(() => {
     const getAPI = async () => {
       try {
-        const response = await axios.get(`https://6475ca44e607ba4797dc9d4d.mockapi.io/MysteryBookList/${params.bookId}`);
+        const response = await axios.get(`https://647f16c8c246f166da900eaa.mockapi.io/endpoint/Biography/${params.bookId}`);
         setIsLoading(false);
         setBook(response.data);
       } catch (error) {
@@ -31,7 +31,7 @@ const MysteryRead = () => {
   return (
     <>
       <Container>
-        <Link to={`/genre/mystery/${book.id}`}>
+        <Link to={`/genre/biography/${book.id}`}>
           <Button className="btn-back my-5">Kembali</Button>
         </Link>
         <div className="mb-4">
@@ -45,4 +45,4 @@ const MysteryRead = () => {
   );
 };
 
-export default MysteryRead;
+export default BiographyRead;

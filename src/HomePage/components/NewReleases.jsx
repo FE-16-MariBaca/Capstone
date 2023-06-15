@@ -13,6 +13,7 @@ const NewReleases = () => {
     { img: 'https://ebooks.gramedia.com/ebook-covers/56534/image_highres/BLK_TATSGOI2020532017.jpg', title: 'Tak Apa-Apa Tak Sempurna' },
     { img: 'https://cdn.gramedia.com/uploads/items/9786020634074_TAK_JADI_MASA.jpg', title: 'Tak Masalah Jadi Orang Introvert' },
   ]);
+
   return (
     <section className="mb-5">
       <p className="fs-4 fw-semibold mt-5 mb-4">New Releases</p>

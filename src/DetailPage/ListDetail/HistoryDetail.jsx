@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import Comment from '../../public-components/Comment/Comment';
 import '../DetailBook.css';
 
-const MysteryDetail = () => {
+const HistoryDetail = () => {
   const navigate = useNavigate();
   const [book, setBook] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -58,7 +58,7 @@ const MysteryDetail = () => {
   useEffect(() => {
     const getAPI = async () => {
       try {
-        const response = await axios.get(`https://6475ca44e607ba4797dc9d4d.mockapi.io/MysteryBookList/${params.bookId}`);
+        const response = await axios.get(`https://647ad0d0d2e5b6101db08cbd.mockapi.io/history/${params.bookId}`);
         setIsLoading(false);
         setBook(response.data);
       } catch (error) {
@@ -128,7 +128,7 @@ const MysteryDetail = () => {
             <Button onClick={handleBookmark} className="btn-bookmark me-2">
               <i className="bx bx-heart"></i> Bookmark
             </Button>
-            <Link to={`/genre/mystery/read/${book.id}`}>
+            <Link to={`/genre/history/read/${book.id}`}>
               <Button className="btn-read-book">Mulai Baca</Button>
             </Link>
           </div>
@@ -139,4 +139,4 @@ const MysteryDetail = () => {
   );
 };
 
-export default MysteryDetail;
+export default HistoryDetail;
