@@ -22,6 +22,9 @@
   filter: brightness(40%);
   object-fit: cover;
 }
+.mySwiper {
+  background: white !important;
+}
 /* Popular This Week & New Releases */
 .img-book {
   max-height: 14rem;
